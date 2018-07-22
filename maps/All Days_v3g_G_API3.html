@@ -49,7 +49,9 @@
 		<script type="text/javascript">
 			// If you put this map on another Web site, you must include your API key or nothing will work!
 			var google_api_key = 'AIzaSyCBngoWvtYUGR-SYLF-f9Pxdb9HMyuvrfA'; // Your project's Google Maps API key
-			document.writeln('<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?v=3&libraries=geometry&sensor=false'+((self.google_api_key&&document.location.toString().indexOf('file://')!=0)?'&key='+google_api_key:'')+'"><'+'/script>'); 		</script>
+			language_code = '';
+			document.writeln('<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3&amp;libraries=geometry&amp;language='+(self.language_code?self.language_code:'')+'&amp;key='+(self.google_api_key?self.google_api_key:'')+'"><'+'/script>');		
+			</script>
 		<!-- end Google Maps script; begin GPS Visualizer setup script (they must be separate) -->
 		<script type="text/javascript">
 			/* Global variables used by the GPS Visualizer functions (1286013061): */
