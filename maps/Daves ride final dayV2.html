@@ -11,6 +11,8 @@
 		<script type="text/javascript">
 			// If you put this map on another Web site, you must include your API key or nothing will work!
 			var google_api_key = 'AIzaSyCBngoWvtYUGR-SYLF-f9Pxdb9HMyuvrfA'; // Your project's Google Maps API key
+						language_code = '';
+			if (document.location.toString().indexOf('https://davejd56.github.io') < 0) { google_api_key = ''; }
 			document.writeln('<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?v=3&libraries=geometry&sensor=false'+((self.google_api_key&&document.location.toString().indexOf('file://')!=0)?'&key='+google_api_key:'')+'"><'+'/script>');
 		</script>
 		
