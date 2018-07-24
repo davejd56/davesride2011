@@ -12,7 +12,8 @@
 		<script type="text/javascript">
 			google_api_key = 'AIzaSyCBngoWvtYUGR-SYLF-f9Pxdb9HMyuvrfA'; // Your project's Google Maps API key goes here (https://code.google.com/apis/console)
 			language_code = '';
-			if (document.location.toString().indexOf('https://davejd56.github.io/davesride2011') < 0) { google_api_key = ''; }			document.writeln('<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3&amp;libraries=geometry&amp;language='+(self.language_code?self.language_code:'')+'&amp;key='+(self.google_api_key?self.google_api_key:'')+'"><'+'/script>');
+			if (document.location.toString().indexOf('https://davejd56.github.io/davesride2011') < 0) { google_api_key = ''; }
+			document.writeln('<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3&amp;libraries=geometry&amp;language='+(self.language_code?self.language_code:'')+'&amp;key='+(self.google_api_key?self.google_api_key:'')+'"><'+'/script>');
 			
 			thunderforest_api_key = ''; // To display OpenStreetMap tiles from ThunderForest, you need a key (http://www.thunderforest.com/docs/apikeys/)
 		</script>
@@ -130,8 +131,8 @@
 			gv_options.garmin_icon_set = '24x24'; // 'gpsmap' are the small 16x16 icons; change it to '24x24' for larger icons
 			gv_options.marker_list_options = {};  // options for a dynamically-created list of markers
 			  gv_options.marker_list_options.enabled = true;  // true|false: enable or disable the marker list altogether
-			  gv_options.marker_list_options.floating = false;  // is the list a floating box inside the map itself?
-			  gv_options.marker_list_options.position = ['RIGHT_TOP',6,38];  // floating list only: position within map
+			  gv_options.marker_list_options.floating = true;  // is the list a floating box inside the map itself?
+			  gv_options.marker_list_options.position = ['RIGHT_BOTTOM',6,38];  // floating list only: position within map
 			  gv_options.marker_list_options.min_width = 160; // minimum width, in pixels, of the floating list
 			  gv_options.marker_list_options.max_width = 180;  // maximum width
 			  gv_options.marker_list_options.min_height = 0;  // minimum height, in pixels, of the floating list
