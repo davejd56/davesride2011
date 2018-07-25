@@ -33,8 +33,9 @@
 				<p align="center" style="font:10px Arial;">This map was created using <a target="_blank" href="http://www.gpsvisualizer.com/">GPS Visualizer</a>'s do-it-yourself geographic utilities.<br /><br />Please wait while the map data loads...</p>
 			</div>
 				
-			<div id="gv_infobox" class="gv_infobox" style="font:11px Arial; border:solid #666666 1px; background-color:#ffffff; padding:4px; overflow:auto; display:none; max-width:1500px;">
+			<div id="gv_infobox" class="gv_infobox" style="font:24px Arial; border:solid #666666 0px; background-color:#ffffff; padding:4px; overflow:auto; display:none; max-width:1500px;">
 				<!-- Although GPS Visualizer didn't create an legend/info box with your map, you can use this space for something else if you'd like; enable it by setting gv_options.infobox_options.enabled to true -->
+			<font color = "#009999" >Dave's Ride 2011 : Route as planned</font>
 			</div>
 
 
@@ -90,9 +91,9 @@
 			
 			gv_options.infobox_options = {}; // options for a floating info box (id="gv_infobox"), which can contain anything
 			  gv_options.infobox_options.enabled = true;  // true|false: enable or disable the info box altogether
-			  gv_options.infobox_options.position = ['LEFT_TOP',52,6];  // [Google anchor name, relative x, relative y]
-			  gv_options.infobox_options.draggable = true;  // true|false: can it be moved around the screen?
-			  gv_options.infobox_options.collapsible = true;  // true|false: can it be collapsed by double-clicking its top bar?
+			  gv_options.infobox_options.position = ['LEFT_TOP',200,25];  // [Google anchor name, relative x, relative y]
+			  gv_options.infobox_options.draggable = false;  // true|false: can it be moved around the screen?
+			  gv_options.infobox_options.collapsible = false;  // true|false: can it be collapsed by double-clicking its top bar?
 			// track-related options:
 			gv_options.track_tooltips = false; // true|false: should the name of a track appear on the map when you mouse over the track itself?
 			gv_options.tracklist_options = {}; // options for a floating list of the tracks visible on the map
