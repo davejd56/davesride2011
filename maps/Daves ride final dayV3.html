@@ -12,7 +12,8 @@
 		<script type="text/javascript">
 			google_api_key = 'AIzaSyCBngoWvtYUGR-SYLF-f9Pxdb9HMyuvrfA'; // Your project's Google Maps API key goes here (https://code.google.com/apis/console)
 			language_code = '';
-			if (document.location.toString().indexOf('https://davejd56.github.io/davesride2011') < 0) { google_api_key = ''; }			document.writeln('<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3&amp;libraries=geometry&amp;language='+(self.language_code?self.language_code:'')+'&amp;key='+(self.google_api_key?self.google_api_key:'')+'"><'+'/script>');
+			if (document.location.toString().indexOf('https://davejd56.github.io/davesride2011') < 0) { google_api_key = ''; }
+			document.writeln('<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3&amp;libraries=geometry&amp;language='+(self.language_code?self.language_code:'')+'&amp;key='+(self.google_api_key?self.google_api_key:'')+'"><'+'/script>');
 			
 			thunderforest_api_key = ''; // To display OpenStreetMap tiles from ThunderForest, you need a key (http://www.thunderforest.com/docs/apikeys/)
 		</script>
@@ -34,6 +35,7 @@
 				
 			<div id="gv_infobox" class="gv_infobox" style="font:11px Arial; border:solid #666666 1px; background-color:#ffffff; padding:4px; overflow:auto; display:none; max-width:900px;">
 				<!-- Although GPS Visualizer didn't create an legend/info box with your map, you can use this space for something else if you'd like; enable it by setting gv_options.infobox_options.enabled to true -->
+			The Title
 			</div>
 
 
@@ -89,7 +91,7 @@
 			gv_options.allow_export = false;  // true|false
 			
 			gv_options.infobox_options = {}; // options for a floating info box (id="gv_infobox"), which can contain anything
-			  gv_options.infobox_options.enabled = false;  // true|false: enable or disable the info box altogether
+			  gv_options.infobox_options.enabled = true;  // true|false: enable or disable the info box altogether
 			  gv_options.infobox_options.position = ['LEFT_TOP',52,6];  // [Google anchor name, relative x, relative y]
 			  gv_options.infobox_options.draggable = false;  // true|false: can it be moved around the screen?
 			  gv_options.infobox_options.collapsible = true;  // true|false: can it be collapsed by double-clicking its top bar?
