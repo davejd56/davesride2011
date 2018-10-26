@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://earth.google.com/kml/2.1">
+<Document>
+<name>Perth to Melbourne Day 15 (Bikely)</name>
+<Placemark>
+<name>Day 15 - Balladonia to Caiguna 139Km</name>
+<LineString>
+<extrude>0</extrude>
+<tessellate>0</tessellate>
+<altitudeMode>absolute</altitudeMode>
+<coordinates>124.02545,-32.44574,143 124.04337,-32.44371,144 124.16537,-32.42966,143 124.37696,-32.40509,142 124.47003,-32.39417,135 124.6265,-32.37532,129 124.75698,-32.3598,128 125.07385,-32.32116,131 125.30884,-32.2921,117 125.4877,-32.2697,110 125.48919,-32.26903,110 </coordinates></LineString>
+		</Placemark>
+		</Document>
+		</kml>
