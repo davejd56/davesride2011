@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-    
-    <meta charset="utf-8" >
+	
 	<title>Dave's Ride 2011 - Ridden</title>
 
+	<meta charset="utf-8" >
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.4/dist/leaflet.css" >
@@ -15,9 +15,9 @@
 	<script src="https://unpkg.com/leaflet@1.3.4/dist/leaflet.js" ></script>
 	<script src="leaflet-panel-layers-1.2.4/src/leaflet-panel-layers.js"></script>
 
-    <!-- <script src="https://api.mapbox.com/mapbox.js/plugins/leaflet-omnivore/v0.2.0/leaflet-omnivore.min.js"></script> -->
+    <script src="https://api.mapbox.com/mapbox.js/plugins/leaflet-omnivore/v0.2.0/leaflet-omnivore.min.js"></script>
+    
 
-    <script src="leaflet-gpx-1.3.1/gpx.js"></script>
     <script src="leaflet.fullscreen-1.1.4/Control.FullScreen.js"></script>
     <script src="Leaflet.defaultextent-0.0.2/dist/leaflet.defaultextent.js"></script>
 
@@ -47,37 +47,37 @@
 
 <script language="JavaScript" type="text/javascript">
 
-        /* set up array holding details of the 28 GPX tracks */
-	var gpx_s = [
-		['GPX Files/25_09_2011 9_51_05 AM_history.gpx', '#e60000', 'Day 1 - 25th Sep 2011'], 
-		['GPX Files/26_09_2011 7_21_23 AM_history.gpx', '#e67500', 'Day 2 - 26th Sep 2011'],
-		['GPX Files/27_09_2011 8_50_24 AM_history.gpx', '#ffff00', 'Day 2 Part 2 - 27th Sep 2011'],
-		['GPX Files/28_09_2011 7_32_59 AM_history.gpx', '#71e600', 'Day 4 - 28th Sep 2011'],
-		['GPX Files/29_09_2011 7_27_04 AM_history.gpx', '#33cc00', 'Day 5 - 29th Sep 2011'],
-		['GPX Files/30_09_2011 8_03_38 AM_history.gpx', '#00ffcc', 'Day 6 - 30th Sep 2011'],
-		['GPX Files/2_10_2011 7_00_11 AM_history.gpx', '#00ccff', 'Day 8 - 2nd Oct 2011'],
-		['GPX Files/3_10_2011 7_56_24 AM_history.gpx', '#0071e6', 'Day 9 - 3rd Oct 2011'],
-		['GPX Files/4_10_2011 8_10_23 AM_history.gpx', '#0000e6', 'Day 10 - 4th Oct 2011'],
-		['GPX Files/7_10_2011 7_05_40 AM_history.gpx', '#7500e6', 'Day 13 - 7th Oct 2011'],
-		['GPX Files/8_10_2011 7_02_27 AM_history.gpx', '#e60000', 'Day 14 - 8th Oct 2011'], 
-		['GPX Files/9_10_2011 6_33_30 AM_history.gpx', '#e67500', 'Day 15 - 9th Oct 2011'],
-		['GPX Files/10_10_2011 6_34_45 AM_history.gpx', '#ffff00', 'Day 16 - 10th Oct 2011'],
-		['GPX Files/11_10_2011 5_59_23 AM_history.gpx', '#71e600', 'Day 17 - 11th Oct 2011'],
-		['GPX Files/12_10_2011 5_43_40 AM_history.gpx', '#33cc00', 'Day 18 - 12th Oct 2011'],
-		['GPX Files/13_10_2011 5_19_15 AM_history.gpx', '#00ffcc', 'Day 19 - 13th Oct 2011'],
-		['GPX Files/14_10_2011 7_41_41 AM_history.gpx', '#00ccff', 'Day 20 - 14th Oct 2011'],
-		['GPX Files/15_10_2011 7_28_54 AM_history.gpx', '#0071e6', 'Day 21 - 15th Oct 2011'],
-		['GPX Files/17_10_2011 7_04_40 AM_history.gpx', '#0000e6', 'Day 23 - 17th Oct 2011'],
-		['GPX Files/18_10_2011 7_59_53 AM_history.gpx', '#7500e6', 'Day 24 - 18th Oct 2011'],
-		['GPX Files/19_10_2011 6_43_02 AM_history.gpx', '#e60000', 'Day 25 - 19th Oct 2011'],
-		['GPX Files/20_10_2011 6_53_33 AM_history.gpx', '#e67500', 'Day 26 - 20th Oct 2011'],
-		['GPX Files/23_10_2011 6_34_21 AM_history.gpx', '#ffff00', 'Day 29 - 23rd Oct 2011'],
-		['GPX Files/24_10_2011 6_48_48 AM_history.gpx', '#71e600', 'Day 30 - 24th Oct 2011'],
-		['GPX Files/25_10_2011 6_48_41 AM_history.gpx', '#33cc00', 'Day 31 - 25th Oct 2011'],
-		['GPX Files/27_10_2011 7_12_39 AM_history.gpx', '#00ffcc', 'Day 33 - 27th Oct 2011'],
-		['GPX Files/28_10_2011 7_18_30 AM_history.gpx', '#00ccff', 'Day 34 - 28th Oct 2011'],
-		['GPX Files/29_10_2011 7_07_24 AM_history.gpx', '#0071e6', 'Day 35 - 29th Oct 2011'],
-		['GPX Files/30_10_2011 8_02_29 AM_history.gpx', '#0000e6', 'Day 36 - 30th Oct 2011']
+        /* set up array holding details of the 27 KML tracks */
+	var kml_s = [
+        ['KML Files Actual/25_09_2011 9_51_05 AM_history.kml', '#e60000', 'Day 1 - 25th Sep 2011'], 
+		['KML Files Actual/26_09_2011 7_21_23 AM_history.kml', '#e67500', 'Day 2 - 26th Sep 2011'],
+		['KML Files Actual/27_09_2011 8_50_24 AM_history.kml', '#ffff00', 'Day 2 Part 2 - 27th Sep 2011'],
+		['KML Files Actual/28_09_2011 7_32_59 AM_history.kml', '#71e600', 'Day 4 - 28th Sep 2011'],
+		['KML Files Actual/29_09_2011 7_27_04 AM_history.kml', '#33cc00', 'Day 5 - 29th Sep 2011'],
+		['KML Files Actual/30_09_2011 8_03_38 AM_history.kml', '#00ffcc', 'Day 6 - 30th Sep 2011'],
+		['KML Files Actual/2_10_2011 7_00_11 AM_history.kml', '#00ccff', 'Day 8 - 2nd Oct 2011'],
+		['KML Files Actual/3_10_2011 7_56_24 AM_history.kml', '#0071e6', 'Day 9 - 3rd Oct 2011'],
+		['KML Files Actual/4_10_2011 8_10_23 AM_history.kml', '#0000e6', 'Day 10 - 4th Oct 2011'],
+		['KML Files Actual/7_10_2011 7_05_40 AM_history.kml', '#7500e6', 'Day 13 - 7th Oct 2011'],
+		['KML Files Actual/8_10_2011 7_02_27 AM_history.kml', '#e60000', 'Day 14 - 8th Oct 2011'], 
+		['KML Files Actual/9_10_2011 6_33_30 AM_history.kml', '#e67500', 'Day 15 - 9th Oct 2011'],
+		['KML Files Actual/10_10_2011 6_34_45 AM_history.kml', '#ffff00', 'Day 16 - 10th Oct 2011'],
+		['KML Files Actual/11_10_2011 5_59_23 AM_history.kml', '#71e600', 'Day 17 - 11th Oct 2011'],
+		['KML Files Actual/12_10_2011 5_43_40 AM_history.kml', '#33cc00', 'Day 18 - 12th Oct 2011'],
+		['KML Files Actual/13_10_2011 5_19_15 AM_history.kml', '#00ffcc', 'Day 19 - 13th Oct 2011'],
+		['KML Files Actual/14_10_2011 7_41_41 AM_history.kml', '#00ccff', 'Day 20 - 14th Oct 2011'],
+		['KML Files Actual/15_10_2011 7_28_54 AM_history.kml', '#0071e6', 'Day 21 - 15th Oct 2011'],
+		['KML Files Actual/17_10_2011 7_04_40 AM_history.kml', '#0000e6', 'Day 23 - 17th Oct 2011'],
+		['KML Files Actual/18_10_2011 7_59_53 AM_history.kml', '#7500e6', 'Day 24 - 18th Oct 2011'],
+		['KML Files Actual/19_10_2011 6_43_02 AM_history.kml', '#e60000', 'Day 25 - 19th Oct 2011'],
+		['KML Files Actual/20_10_2011 6_53_33 AM_history.kml', '#e67500', 'Day 26 - 20th Oct 2011'],
+		['KML Files Actual/23_10_2011 6_34_21 AM_history.kml', '#ffff00', 'Day 29 - 23rd Oct 2011'],
+		['KML Files Actual/24_10_2011 6_48_48 AM_history.kml', '#71e600', 'Day 30 - 24th Oct 2011'],
+		['KML Files Actual/25_10_2011 6_48_41 AM_history.kml', '#33cc00', 'Day 31 - 25th Oct 2011'],
+		['KML Files Actual/27_10_2011 7_12_39 AM_history.kml', '#00ffcc', 'Day 33 - 27th Oct 2011'],
+		['KML Files Actual/28_10_2011 7_18_30 AM_history.kml', '#00ccff', 'Day 34 - 28th Oct 2011'],
+		['KML Files Actual/29_10_2011 7_07_24 AM_history.kml', '#0071e6', 'Day 35 - 29th Oct 2011'],
+		['KML Files Actual/30_10_2011 8_02_29 AM_history.kml', '#0000e6', 'Day 36 - 30th Oct 2011']
 		];
 
     /* 	Set up global variables */
@@ -87,11 +87,11 @@
 	var lng_sW_1
 	var bnds_1
     var bnds_2
-	var gpx = [];
+	var kml = [];
     var Att_Com = ' | Side Panel &copy; <a href="https://github.com/stefanocudini/leaflet-panel-layers/blob/master/license.txt">2015-2017 Stefano Cudini</a> | '+
         '<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a> | ' +
         'Full Screen &copy; <a href="https://github.com/brunob/leaflet.fullscreen/blob/master/LICENSE">2013, Bruno Bergot</a>'
-            
+        
     /* Set up initial map layer */
     
     // Fullscreen & restore default zoom
@@ -122,45 +122,42 @@
         if(window.console) window.console.log('exitFullscreen');
         });
 	
-/*  Track layers 1 to 27, imported from GPX files */
+/*  Track layers 1 to 27, imported from KML Actual files */
     for (i = 1; i < 28 ; i++) {    //29
-        Load_GPXs(gpx_s[i][0] ,gpx_s[i][1]);   
+        Load_KMLs(kml_s[i][0] ,kml_s[i][1]);   
         }
-        function Load_GPXs(myfile, mycolor) {
-        gpx[i] = new L.GPX(myfile, {
-        async: true,
-        polyline_options: {
-        color: mycolor,
-        opacity: .8,
-        weight: 4,
-        lineCap: 'round'
-        }     
+
+        function Load_KMLs(myfile, mycolor) {
+        kml[i] = new omnivore.kml(myfile)
+        .bindPopup(kml_s[i][2])
+        .bindTooltip(kml_s[i][2])
+        .on('ready', function(e) {
+        this.setStyle({
+            color: mycolor,
+            opacity: .8,
+            weight: 4,
+            lineCap: 'round'
         })
-        .bindPopup(gpx_s[i][2])
-        .bindTooltip(gpx_s[i][2])
-        .on('loaded', function(e) {
         bnds_1 = (e.target.getBounds())
         if (bnds_1._northEast.lat > lat_nE_1){lat_nE_1 = bnds_1._northEast.lat}
         if (bnds_1._northEast.lng > lng_nE_1){lng_nE_1 = bnds_1._northEast.lng}
         if (bnds_1._southWest.lat < lat_sW_1){lat_sW_1 = bnds_1._southWest.lat}
         if (bnds_1._southWest.lng < lng_sW_1){lng_sW_1 = bnds_1._southWest.lng}
         });
-        mymap.addLayer(gpx[i]);
+        mymap.addLayer(kml[i]);
         }   
      
-    /* Track layer 0, imported from GPX file. Sets lat_nE_1, lng_nE_1, lat_sW_1, lng_sW_1 to initial values */
-    var gpx_0 = new L.GPX(gpx_s[0][0], {
-    	async: true,
-        polyline_options: {
-        color: gpx_s[0][1],
-        opacity: .8,
-        weight: 4,
-        lineCap: 'round'
-        }    
+    /* Track layer 0, imported from KML Actual file. Sets lat_nE_1, lng_nE_1, lat_sW_1, lng_sW_1 to initial values */
+    var kml_0 = new omnivore.kml(kml_s[0][0])
+        .bindPopup(kml_s[0][2])
+        .bindTooltip(kml_s[0][2])
+        .on('ready', function(e) {
+        this.setStyle({
+            color: kml_s[0][1],
+            opacity: .8,
+            weight: 4,
+            lineCap: 'round'
         })
-        .bindPopup(gpx_s[0][2])
-        .bindTooltip(gpx_s[0][2])
-        .on('loaded', function(e) {
         bnds_1 = (e.target.getBounds())
         lat_nE_1 = bnds_1._northEast.lat
         lng_nE_1 = bnds_1._northEast.lng
@@ -168,23 +165,20 @@
         lng_sW_1 = bnds_1._southWest.lng
         ;
         });
-    mymap.addLayer(gpx_0);
+    mymap.addLayer(kml_0);
 
-    /* Track layer 28, imported from GPX file. Fits map to bounds of all tracks */
-    var gpx_28 = new L.GPX(gpx_s[28][0], {
-        async: true,
-        polyline_options: {
-        color: gpx_s[28][1],
-        opacity: .8,
-        weight: 4,
-        lineCap: 'round'
-        }
+    /* Track layer 28, imported from KML file. Fits map to bounds of all tracks */
+    var kml_28 = new omnivore.kml(kml_s[28][0])
+        .bindPopup(kml_s[28][2])
+        .bindTooltip(kml_s[28][2])
+        .on('ready', function(e) {
+        this.setStyle({
+            color: kml_s[28][1],
+            opacity: .8,
+            weight: 4,
+            lineCap: 'round'
         })
-        .bindPopup(gpx_s[28][2])
-        .bindTooltip(gpx_s[28][2])
-        .on('loaded', function(e) {
-        
-        bnds_1 = (e.target.getBounds())
+            bnds_1 = (e.target.getBounds())
         if (bnds_1._northEast.lat > lat_nE_1){lat_nE_1 = bnds_1._northEast.lat}
         if (bnds_1._northEast.lng > lng_nE_1){lng_nE_1 = bnds_1._northEast.lng}
         if (bnds_1._southWest.lat < lat_sW_1){lat_sW_1 = bnds_1._southWest.lat}
@@ -196,179 +190,179 @@
         mymap.fitBounds(bnds_1)
         ;
         });
-    mymap.addLayer(gpx_28);
+    mymap.addLayer(kml_28);
 
     /* Set up click on track & zoom map to Track */
-    gpx_0.on('click', onTrackclick);
+    kml_0.on('click', onTrackclick);
     function onTrackclick(e){
         bnds_2 = e.target
         mymap.fitBounds(bnds_2.getBounds());
     }
 
-    gpx[1].on('click', onTrackclick);
+    kml[1].on('click', onTrackclick);
     function onTrackclick(e){
         bnds_2 = e.target
         mymap.fitBounds(bnds_2.getBounds());
     }
 
 
-    gpx[2].on('click', onTrackclick);
+    kml[2].on('click', onTrackclick);
     function onTrackclick(e){
         bnds_2 = e.target
         mymap.fitBounds(bnds_2.getBounds());
     }
 
-    gpx[3].on('click', onTrackclick);
+    kml[3].on('click', onTrackclick);
     function onTrackclick(e){
         bnds_2 = e.target
         mymap.fitBounds(bnds_2.getBounds());
     }
 
-    gpx[4].on('click', onTrackclick);
+    kml[4].on('click', onTrackclick);
     function onTrackclick(e){
         bnds_2 = e.target
         mymap.fitBounds(bnds_2.getBounds());
     }
 
-    gpx[5].on('click', onTrackclick);
+    kml[5].on('click', onTrackclick);
     function onTrackclick(e){
         bnds_2 = e.target
         mymap.fitBounds(bnds_2.getBounds());
     }
 
-    gpx[6].on('click', onTrackclick);
+    kml[6].on('click', onTrackclick);
     function onTrackclick(e){
         bnds_2 = e.target
         mymap.fitBounds(bnds_2.getBounds());
     }
 
-    gpx[7].on('click', onTrackclick);
+    kml[7].on('click', onTrackclick);
     function onTrackclick(e){
         bnds_2 = e.target
         mymap.fitBounds(bnds_2.getBounds());
     }
 
-    gpx[8].on('click', onTrackclick);
+    kml[8].on('click', onTrackclick);
     function onTrackclick(e){
         bnds_2 = e.target
         mymap.fitBounds(bnds_2.getBounds());
     }
 
-    gpx[9].on('click', onTrackclick);
+    kml[9].on('click', onTrackclick);
     function onTrackclick(e){
         bnds_2 = e.target
         mymap.fitBounds(bnds_2.getBounds());
     }
 
-    gpx[10].on('click', onTrackclick);
+    kml[10].on('click', onTrackclick);
     function onTrackclick(e){
         bnds_2 = e.target
         mymap.fitBounds(bnds_2.getBounds());
     }
 
-    gpx[11].on('click', onTrackclick);
+    kml[11].on('click', onTrackclick);
     function onTrackclick(e){
         bnds_2 = e.target
         mymap.fitBounds(bnds_2.getBounds());
     }
 
-    gpx[12].on('click', onTrackclick);
+    kml[12].on('click', onTrackclick);
     function onTrackclick(e){
         bnds_2 = e.target
         mymap.fitBounds(bnds_2.getBounds());
     }
 
-    gpx[13].on('click', onTrackclick);
+    kml[13].on('click', onTrackclick);
     function onTrackclick(e){
         bnds_2 = e.target
         mymap.fitBounds(bnds_2.getBounds());
     }
 
-    gpx[14].on('click', onTrackclick);
+    kml[14].on('click', onTrackclick);
     function onTrackclick(e){
         bnds_2 = e.target
         mymap.fitBounds(bnds_2.getBounds());
     }
 
-    gpx[15].on('click', onTrackclick);
+    kml[15].on('click', onTrackclick);
     function onTrackclick(e){
         bnds_2 = e.target
         mymap.fitBounds(bnds_2.getBounds());
     }
 
-    gpx[16].on('click', onTrackclick);
+    kml[16].on('click', onTrackclick);
     function onTrackclick(e){
         bnds_2 = e.target
         mymap.fitBounds(bnds_2.getBounds());
     }
 
-    gpx[17].on('click', onTrackclick);
+    kml[17].on('click', onTrackclick);
     function onTrackclick(e){
         bnds_2 = e.target
         mymap.fitBounds(bnds_2.getBounds());
     }
 
-    gpx[18].on('click', onTrackclick);
+    kml[18].on('click', onTrackclick);
     function onTrackclick(e){
         bnds_2 = e.target
         mymap.fitBounds(bnds_2.getBounds());
     }
 
-    gpx[19].on('click', onTrackclick);
+    kml[19].on('click', onTrackclick);
     function onTrackclick(e){
         bnds_2 = e.target
         mymap.fitBounds(bnds_2.getBounds());
     }
 
-    gpx[20].on('click', onTrackclick);
+    kml[20].on('click', onTrackclick);
     function onTrackclick(e){
         bnds_2 = e.target
         mymap.fitBounds(bnds_2.getBounds());
     }
 
-    gpx[21].on('click', onTrackclick);
+    kml[21].on('click', onTrackclick);
     function onTrackclick(e){
         bnds_2 = e.target
         mymap.fitBounds(bnds_2.getBounds());
     }
 
-    gpx[22].on('click', onTrackclick);
+    kml[22].on('click', onTrackclick);
     function onTrackclick(e){
         bnds_2 = e.target
         mymap.fitBounds(bnds_2.getBounds());
     }
 
-    gpx[23].on('click', onTrackclick);
+    kml[23].on('click', onTrackclick);
     function onTrackclick(e){
         bnds_2 = e.target
         mymap.fitBounds(bnds_2.getBounds());
     }
 
-    gpx[24].on('click', onTrackclick);
+    kml[24].on('click', onTrackclick);
     function onTrackclick(e){
         bnds_2 = e.target
         mymap.fitBounds(bnds_2.getBounds());
     }
 
-    gpx[25].on('click', onTrackclick);
+    kml[25].on('click', onTrackclick);
     function onTrackclick(e){
         bnds_2 = e.target
         mymap.fitBounds(bnds_2.getBounds());
     }
 
-    gpx[26].on('click', onTrackclick);
+    kml[26].on('click', onTrackclick);
+    function onTrackclick(e){
+        bnds_2 = e.target
+        mymap.fitBounds(bnds_2.getBounds());
+    
+    }
+    kml[27].on('click', onTrackclick);
     function onTrackclick(e){
         bnds_2 = e.target
         mymap.fitBounds(bnds_2.getBounds());
     }
 
-    gpx[27].on('click', onTrackclick);
-    function onTrackclick(e){
-        bnds_2 = e.target
-        mymap.fitBounds(bnds_2.getBounds());
-    }
-
-    gpx_28.on('click', onTrackclick);
+    kml_28.on('click', onTrackclick);
     function onTrackclick(e){
         bnds_2 = e.target
         mymap.fitBounds(bnds_2.getBounds());
@@ -426,124 +420,125 @@
     /* Sets Track layers in side panel */
     var overLayers = [
         {
-            group: "Tracks ridden each day",
+            group: "Planned routes each day",
             //collapsed: true,
             layers: [
         
                 {
-                    name: gpx_s[0][2],
-                    layer: gpx_0                    
+                    name: kml_s[0][2],
+                    layer: kml_0                    
                 },
                 {
-                    name: gpx_s[1][2],
-                    layer: gpx[1]
+                    name: kml_s[1][2],
+                    layer: kml[1]
                 },
                 {
-                    name: gpx_s[2][2],
-                    layer: gpx[2]
+                    name: kml_s[2][2],
+                    layer: kml[2]
                 },
                 {
-                    name: gpx_s[3][2],
-                    layer: gpx[3]
+                    name: kml_s[3][2],
+                    layer: kml[3]
                 },
                 {
-                    name: gpx_s[4][2],
-                    layer: gpx[4]
+                    name: kml_s[4][2],
+                    layer: kml[4]
                 },				
                 {
-                    name: gpx_s[5][2],
-                    layer: gpx[5]
+                    name: kml_s[5][2],
+                    layer: kml[5]
                 },				
                 {
-                    name: gpx_s[6][2],
-                    layer: gpx[6]
+                    name: kml_s[6][2],
+                    layer: kml[6]
                 },				
                 {
-                    name: gpx_s[7][2],
-                    layer: gpx[7]
+                    name: kml_s[7][2],
+                    layer: kml[7]
                 },				
                 {
-                    name: gpx_s[8][2],
-                    layer: gpx[8]
+                    name: kml_s[8][2],
+                    layer: kml[8]
                 },				
                 {
-                    name: gpx_s[9][2],
-                    layer: gpx[9]
+                    name: kml_s[9][2],
+                    layer: kml[9]
                 },				
                 {
-                    name: gpx_s[10][2],
-                    layer: gpx[10]
+                    name: kml_s[10][2],
+                    layer: kml[10]
                 },				
                 {
-                    name: gpx_s[11][2],
-                    layer: gpx[11]
+                    name: kml_s[11][2],
+                    layer: kml[11]
                 },				
                 {
-                    name: gpx_s[12][2],
-                    layer: gpx[12]
+                    name: kml_s[12][2],
+                    layer: kml[12]
                 },				
                 {
-                    name: gpx_s[13][2],
-                    layer: gpx[13]
+                    name: kml_s[13][2],
+                    layer: kml[13]
                 },				
                 {
-                    name: gpx_s[14][2],
-                    layer: gpx[14]
+                    name: kml_s[14][2],
+                    layer: kml[14]
                 },				
                 {
-                    name: gpx_s[15][2],
-                    layer: gpx[15]
+                    name: kml_s[15][2],
+                    layer: kml[15]
                 },				
                 {
-                    name: gpx_s[16][2],
-                    layer: gpx[16]
+                    name: kml_s[16][2],
+                    layer: kml[16]
                 },				
                 {
-                    name: gpx_s[17][2],
-                    layer: gpx[17]
+                    name: kml_s[17][2],
+                    layer: kml[17]
                 },				
                 {
-                    name: gpx_s[18][2],
-                    layer: gpx[18]
+                    name: kml_s[18][2],
+                    layer: kml[18]
                 },				
                 {
-                    name: gpx_s[19][2],
-                    layer: gpx[19]
+                    name: kml_s[19][2],
+                    layer: kml[19]
                 },				
                 {
-                    name: gpx_s[20][2],
-                    layer: gpx[20]
+                    name: kml_s[20][2],
+                    layer: kml[20]
                 },				
                 {
-                    name: gpx_s[21][2],
-                    layer: gpx[21]
+                    name: kml_s[21][2],
+                    layer: kml[21]
                 },				
                 {
-                    name: gpx_s[22][2],
-                    layer: gpx[22]
+                    name: kml_s[22][2],
+                    layer: kml[22]
                 },				
                 {
-                    name: gpx_s[23][2],
-                    layer: gpx[23]
+                    name: kml_s[23][2],
+                    layer: kml[23]
                 },
                 {
-                    name: gpx_s[24][2],
-                    layer: gpx[24]
+                    name: kml_s[24][2],
+                    layer: kml[24]
                 },
                 {
-                    name: gpx_s[25][2],
-                    layer: gpx[25]
+                    name: kml_s[25][2],
+                    layer: kml[25]
                 },
                 {
-                    name: gpx_s[26][2],
-                    layer: gpx[26]
+                    name: kml_s[26][2],
+                    layer: kml[26]
                 },
                 {
-                    name: gpx_s[27][2],
-                    layer: gpx[27]
-                },                {
-                    name: gpx_s[28][2],
-                    layer: gpx_28
+                    name: kml_s[27][2],
+                    layer: kml[27]
+                },
+                {
+                    name: kml_s[28][2],
+                    layer: kml_28
                 }
             ]
         }
