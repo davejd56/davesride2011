@@ -47,7 +47,7 @@
 
 <script language="JavaScript" type="text/javascript">
 
-        /* set up array holding details of the 27 KML tracks */
+    /* set up array holding details of the 29 KML tracks */
 	var kml_s = [
         ['KML Files Actual/25_09_2011 9_51_05 AM_history_r1.kml', '#e60000', 'Day 1 - 25th Sep 2011'], 
 		['KML Files Actual/26_09_2011 7_21_23 AM_history_r1.kml', '#e67500', 'Day 2 - 26th Sep 2011'],
@@ -81,11 +81,6 @@
 		];
 
     /* 	Set up global variables */
-    var lat_nE_1
-	var lng_nE_1
-	var lat_sW_1
-	var lng_sW_1
-	var bnds_1
     var bnds_2
 	var kml = [];
     var Att_Com = ' | Side Panel &copy; <a href="https://github.com/stefanocudini/leaflet-panel-layers/blob/master/license.txt">2015-2017 Stefano Cudini</a> | '+
@@ -102,7 +97,7 @@
             title:"Toggle Fullscreen"}
     }).setView([-34.034453, 130.913086], 6);
 
-    // var mymap = L.map('mapid').setView([-37.763658, 145.077896], 12),
+    //var mymap = L.map('mapid').setView([-37.763658, 145.077896], 12);
 	mboxLayer = new 
 		L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoiZGF2ZWpkNDMxNzgiLCJhIjoiY2puZ3ByeTlhMDFicDNrcG1yMjlkcmxjciJ9.4_vjg7yVBgk-CZtkol42Ig', { 
 		maxZoom: 23,
@@ -112,7 +107,7 @@
         Att_Com,
 		id: 'mapbox.streets'
         });
-        mymap.addLayer(mboxLayer); 
+        mymap.addLayer(mboxLayer);
 
     // detect fullscreen toggling
     mymap.on('enterFullscreen', function(){
@@ -122,8 +117,8 @@
         if(window.console) window.console.log('exitFullscreen');
         });
 	
-/*  Track layers 1 to 27, imported from KML Actual files */
-    for (i = 1; i < 28 ; i++) {    //29
+/*  Track layers 0 to 28, imported from KML Actual files */
+    for (i = 0; i < 29 ; i++) {    //29
         Load_KMLs(kml_s[i][0] ,kml_s[i][1]);   
         }
 
@@ -138,67 +133,17 @@
             weight: 4,
             lineCap: 'round'
         })
-        bnds_1 = (e.target.getBounds())
-        if (bnds_1._northEast.lat > lat_nE_1){lat_nE_1 = bnds_1._northEast.lat}
-        if (bnds_1._northEast.lng > lng_nE_1){lng_nE_1 = bnds_1._northEast.lng}
-        if (bnds_1._southWest.lat < lat_sW_1){lat_sW_1 = bnds_1._southWest.lat}
-        if (bnds_1._southWest.lng < lng_sW_1){lng_sW_1 = bnds_1._southWest.lng}
         });
         mymap.addLayer(kml[i]);
         }   
      
-    /* Track layer 0, imported from KML Actual file. Sets lat_nE_1, lng_nE_1, lat_sW_1, lng_sW_1 to initial values */
-    var kml_0 = new omnivore.kml(kml_s[0][0])
-        .bindPopup(kml_s[0][2])
-        .bindTooltip(kml_s[0][2])
-        .on('ready', function(e) {
-        this.setStyle({
-            color: kml_s[0][1],
-            opacity: .8,
-            weight: 4,
-            lineCap: 'round'
-        })
-        bnds_1 = (e.target.getBounds())
-        lat_nE_1 = bnds_1._northEast.lat
-        lng_nE_1 = bnds_1._northEast.lng
-        lat_sW_1 = bnds_1._southWest.lat
-        lng_sW_1 = bnds_1._southWest.lng
-        ;
-        });
-    mymap.addLayer(kml_0);
-
-    /* Track layer 28, imported from KML file. Fits map to bounds of all tracks */
-    var kml_28 = new omnivore.kml(kml_s[28][0])
-        .bindPopup(kml_s[28][2])
-        .bindTooltip(kml_s[28][2])
-        .on('ready', function(e) {
-        this.setStyle({
-            color: kml_s[28][1],
-            opacity: .8,
-            weight: 4,
-            lineCap: 'round'
-        })
-            bnds_1 = (e.target.getBounds())
-        if (bnds_1._northEast.lat > lat_nE_1){lat_nE_1 = bnds_1._northEast.lat}
-        if (bnds_1._northEast.lng > lng_nE_1){lng_nE_1 = bnds_1._northEast.lng}
-        if (bnds_1._southWest.lat < lat_sW_1){lat_sW_1 = bnds_1._southWest.lat}
-        if (bnds_1._southWest.lng < lng_sW_1){lng_sW_1 = bnds_1._southWest.lng}
-        bnds_1._northEast.lat = lat_nE_1
-        bnds_1._northEast.lng = lng_nE_1
-        bnds_1._southWest.lat = lat_sW_1
-        bnds_1._southWest.lng = lng_sW_1
-        mymap.fitBounds(bnds_1)
-        ;
-        });
-    mymap.addLayer(kml_28);
-
     /* Set up click on track & zoom map to Track */
     function onTrackclick(e){
         bnds_2 = e.target
         mymap.fitBounds(bnds_2.getBounds());
     }
     
-    kml_0.on('click', onTrackclick);
+    kml[0].on('click', onTrackclick);
     kml[1].on('click', onTrackclick);
     kml[2].on('click', onTrackclick);
     kml[3].on('click', onTrackclick);
@@ -226,7 +171,7 @@
     kml[25].on('click', onTrackclick);
     kml[26].on('click', onTrackclick);
     kml[27].on('click', onTrackclick);
-    kml_28.on('click', onTrackclick);
+    kml[28].on('click', onTrackclick);
                                                         
     /* Sets map layers fro side panel */
     var baseLayers = [
@@ -282,10 +227,9 @@
             group: "Planned routes each day",
             //collapsed: true,
             layers: [
-        
                 {
                     name: kml_s[0][2],
-                    layer: kml_0                    
+                    layer: kml[0]                    
                 },
                 {
                     name: kml_s[1][2],
@@ -397,7 +341,7 @@
                 },
                 {
                     name: kml_s[28][2],
-                    layer: kml_28
+                    layer: kml[28]
                 }
             ]
         }
@@ -414,6 +358,7 @@
     /* Adds side panel to map */
     mymap.addControl(panelLayers);
 
+    /* Adds Finish bike icon and popup */
     var myIcon = L.icon({
         iconUrl: 'Bicycle-Red.png',
         iconSize: [50, ],
@@ -424,9 +369,10 @@
 	var myPopup = L.popup()
         .setContent ('<b>The Finish !</b><br>Day 36, Final Day - 30th October 2011<br>Finished riding 1:15pm at Birrarung Marr')
     ;
+
     L.marker([-37.818751, 144.97285], {
 		icon: myIcon
-	}).addTo(mymap).bindPopup(myPopup).openPopup();    
+	}).addTo(mymap).bindPopup(myPopup).openPopup();
 
 </script>
 
