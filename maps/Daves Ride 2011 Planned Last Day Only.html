@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html>
+<head>
+	
+	<title>Dave's Ride 2011 : Planned Final Day Only</title>
+
+	<meta charset="utf-8" >
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.4/dist/leaflet.css" >
+    <link rel="stylesheet" href="leaflet-panel-layers-1.2.4/src/leaflet-panel-layers.css" />
+    <link rel="stylesheet" href="Leaflet.defaultextent-0.0.2/dist/leaflet.defaultextent.css" />
+    <link rel="stylesheet" href="TitleText_LastDayOnly.css"/>
+	
+	<script src="https://unpkg.com/leaflet@1.3.4/dist/leaflet.js" ></script>
+	
+	<script src="leaflet-panel-layers-1.2.4/src/leaflet-panel-layers.js"></script>
+
+    <script src="https://api.mapbox.com/mapbox.js/plugins/leaflet-omnivore/v0.2.0/leaflet-omnivore.min.js"></script>
+    
+    <script src="leaflet.fullscreen-1.1.4/Control.FullScreen.js"></script>
+
+    <script src="Leaflet.defaultextent-0.0.2/dist/leaflet.defaultextent.js"></script>
+
+	<style type="text/css">
+	html, body, #mapid {
+		width: 100vw;
+		height: 100vh;
+        margin: 0;
+        }
+
+    /* FullScreen */
+		.leaflet-control-zoom-fullscreen { background-image: url(Images/icon-fullscreen.png); }
+		/* on selector per rule as explained here : http://www.sitepoint.com/html5-full-screen-api/ */
+		#mapid:-webkit-full-screen { width: 100% !important; height: 100% !important; z-index: 99999; }
+		#mapid:-moz-full-screen { width: 100% !important; height: 100% !important; z-index: 99999; }
+		#mapid:full-screen { width: 100% !important; height: 100% !important; z-index: 99999; }
+		.leaflet-pseudo-fullscreen { position: fixed !important; width: 100% !important; height: 100% !important; top: 0px !important; left: 0px !important; z-index: 99999; }
+	</style>
+
+</head>
+
+<body>
+
+<div id="mapid">
+    <h1></h1>
+</div>
+
+<script language="JavaScript" type="text/javascript">
+
+        /* set up array holding details of the 27 KML tracks */
+	var kml_s = ['KML Files/2b_Day 36_V5_FinalDay.kml', '#e60000', 'Day 36 - Final Day 30th Oct 2011'];
+
+    /* 	Set up global variables */
+	var bnds_1
+    var bnds_2
+    var MText
+	var kml = [];
+    var Att_Com = ' | Side Panel &copy; <a href="https://github.com/stefanocudini/leaflet-panel-layers/blob/master/license.txt">2015-2017 Stefano Cudini</a> | '+
+        '<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a> | ' +
+        'Full Screen &copy; <a href="https://github.com/brunob/leaflet.fullscreen/blob/master/LICENSE">2013, Bruno Bergot</a>'
+        
+    /* Set up initial map layer */
+    
+    // Fullscreen & restore default zoom
+    var mymap = L.map('mapid', {
+        defaultExtentControl: true, 
+        fullscreenControl: true,
+        fullscreenControlOptions: { // optional
+            title:"Toggle Fullscreen"}
+    });
+
+    // var mymap = L.map('mapid').setView([-37.763658, 145.077896], 12),
+	mboxLayer = new 
+		L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoiZGF2ZWpkNDMxNzgiLCJhIjoiY2puZ3ByeTlhMDFicDNrcG1yMjlkcmxjciJ9.4_vjg7yVBgk-CZtkol42Ig', { 
+		maxZoom: 23,
+        attribution:
+        'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors | ' +
+		'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>' + 
+        Att_Com,
+		id: 'mapbox.streets'
+        });
+        mymap.addLayer(mboxLayer); 
+
+    // detect fullscreen toggling
+    mymap.on('enterFullscreen', function(){
+        if(window.console) window.console.log('enterFullscreen');
+        });
+    mymap.on('exitFullscreen', function(){
+        if(window.console) window.console.log('exitFullscreen');
+        });
+	
+    /* Track layer 0, imported from KML file. Sets lat_nE_1, lng_nE_1, lat_sW_1, lng_sW_1 to initial values */
+    var kml_1 = new omnivore.kml(kml_s[0])
+        .bindPopup(kml_s[2])
+        .bindTooltip(kml_s[2])
+        .on('ready', function(e) {
+        this.setStyle({
+            color: kml_s[1],
+            opacity: .8,
+            weight: 4,
+            lineCap: 'round'
+        })
+        bnds_1 = (e.target.getBounds())
+        mymap.fitBounds(bnds_1)
+        ;
+        });
+    mymap.addLayer(kml_1);
+
+ 
+    /* Set up click on track & zoom map to Track */
+    function onTrackclick(e){
+        bnds_2 = e.target
+        mymap.fitBounds(bnds_2.getBounds());
+    }
+    kml_1.on('click', onTrackclick);
+
+    /* Adds start marker and popup */
+        MText = '<b>00 Depart 8am</b>';
+        var StartIcon = L.icon({
+        iconUrl: 'Images/Circle,_Green.png',
+        //iconSize: [30, ],
+        iconAnchor: [10, 10],
+        popupAnchor: [0, 0],
+	});
+	var StartPopup = L.popup()
+        .setContent (MText + '<br>Depart from<br />Caledonian Caravan Park<br />45 Jopling St<br />Ballan VIC 3342')
+    ;
+    var StartMarker = L.marker([-37.5982584, 144.2359242], {
+		icon: StartIcon
+	})
+    .bindPopup(StartPopup).openPopup()
+    .bindTooltip(MText)
+    ;
+    StartMarker.addTo(mymap);
+
+    /* Adds Info1 marker and popup */
+    MText = '<b>01 Here @ ~8:40am</b>';
+    var info1_Icon = L.icon({
+        iconUrl: 'Images/Information.png',
+        //iconSize: [30, ],
+        iconAnchor: [10, 10],
+        popupAnchor: [0, 0],
+	});
+	var info1_Popup = L.popup()
+        .setContent (MText)
+    ;
+    var info1_Marker = L.marker([-37.7093463, 144.2237663], {
+		icon: info1_Icon
+	})
+    .bindPopup(info1_Popup).openPopup()
+    .bindTooltip(MText)
+    ;
+    info1_Marker.addTo(mymap);
+
+    /* Adds info2 marker and popup */
+    MText = '<b>02 Here @ ~9:25am</b>';
+    var info2_Icon = L.icon({
+        iconUrl: 'Images/Information.png',
+        //iconSize: [30, ],
+        iconAnchor: [10, 10],
+        popupAnchor: [0, 0],
+	});
+	var info2_Popup = L.popup()
+        .setContent (MText)
+    ;
+    var info2_Marker = L.marker([-37.7381348, 144.3925959], {
+		icon: info2_Icon
+	})
+    .bindPopup(info2_Popup).openPopup()
+    .bindTooltip(MText)
+    ;
+    info2_Marker.addTo(mymap);
+
+    /* Adds info3 marker and popup */
+    MText = '<b>03 Here @ ~9:40am</b>';
+    var info3_Icon = L.icon({
+        iconUrl: 'Images/Information.png',
+        //iconSize: [30, ],
+        iconAnchor: [10, 10],
+        popupAnchor: [0, 0],
+	});
+	var info3_Popup = L.popup()
+        .setContent (MText)
+    ;
+    var info3_Marker = L.marker([-37.7536559, 144.4434599], {
+		icon: info3_Icon
+	})
+    .bindPopup(info3_Popup).openPopup()
+    .bindTooltip(MText)
+    ;
+    info3_Marker.addTo(mymap);
+
+    /* Adds rest1 marker and popup */
+    MText = '<b>04 Rest Stop arrive @ ~10:15am</b>';
+    var rest1_Icon = L.icon({
+        iconUrl: 'Images/Restaurant.png',
+        //iconSize: [30, ],
+        iconAnchor: [10, 10],
+        popupAnchor: [0, 0],
+	});
+	var rest1_Popup = L.popup()
+        .setContent (MText + '<br>Ring/Message Claire<br />Depart ~10:45am')
+    ;
+    var rest1_Marker = L.marker([-37.8340867, 144.5481761], {
+		icon: rest1_Icon
+	})
+    .bindPopup(rest1_Popup).openPopup()
+    .bindTooltip(MText)
+    ;
+    rest1_Marker.addTo(mymap);
+
+    /* Adds info5 marker and popup */
+    MText = '<b>05 Here @ ~11:15am</b>';
+    var info5_Icon = L.icon({
+        iconUrl: 'Images/Information.png',
+        //iconSize: [30, ],
+        iconAnchor: [10, 10],
+        popupAnchor: [0, 0],
+	});
+	var info5_Popup = L.popup()
+        .setContent (MText)
+    ;
+    var info5_Marker = L.marker([-37.9025061, 144.6510137], {
+		icon: info5_Icon
+	})
+    .bindPopup(info5_Popup).openPopup()
+    .bindTooltip(MText)
+    ;
+    info5_Marker.addTo(mymap);
+
+    /* Adds info6 marker and popup */
+    MText = '<b>06 Here @ ~11:30am</b>';
+    var info6_Icon = L.icon({
+        iconUrl: 'Images/Information.png',
+        //iconSize: [30, ],
+        iconAnchor: [10, 10],
+        popupAnchor: [0, 0],
+	});
+	var info6_Popup = L.popup()
+        .setContent (MText)
+    ;
+    var info6_Marker = L.marker([-37.9003768, 144.7063938], {
+		icon: info6_Icon
+	})
+    .bindPopup(info6_Popup).openPopup()
+    .bindTooltip(MText)
+    ;
+    info6_Marker.addTo(mymap);
+
+    /* Adds info7 marker and popup */
+    MText = '<b>07 Here @ ~11:45am</b>';
+    var info7_Icon = L.icon({
+        iconUrl: 'Images/Information.png',
+        //iconSize: [30, ],
+        iconAnchor: [10, 10],
+        popupAnchor: [0, 0],
+	});
+	var info7_Popup = L.popup()
+        .setContent (MText)
+    ;
+    var info7_Marker = L.marker([-37.9007756, 144.7535753], {
+		icon: info7_Icon
+	})
+    .bindPopup(info7_Popup).openPopup()
+    .bindTooltip(MText)
+    ;
+    info7_Marker.addTo(mymap);
+
+    /* Adds info8 marker and popup */
+    MText = '<b>08 Here @ ~12noon</b>';
+    var info8_Icon = L.icon({
+        iconUrl: 'Images/Information.png',
+        //iconSize: [30, ],
+        iconAnchor: [10, 10],
+        popupAnchor: [0, 0],
+	});
+	var info8_Popup = L.popup()
+        .setContent (MText + '<br>Ring/message Claire')
+    ;
+    var info8_Marker = L.marker([-37.8750811, 144.7985854], {
+		icon: info8_Icon
+	})
+    .bindPopup(info8_Popup).openPopup()
+    .bindTooltip(MText)
+    ;
+    info8_Marker.addTo(mymap);
+
+    /* Adds info9 marker and popup */
+    MText = '<b>09 Here @ ~12:30pm</b>';
+    var info9_Icon = L.icon({
+        iconUrl: 'Images/Information.png',
+        //iconSize: [30, ],
+        iconAnchor: [10, 10],
+        popupAnchor: [0, 0],
+	});
+	var info9_Popup = L.popup()
+        .setContent (MText + '<br>Ring/message Claire')
+    ;
+    var info9_Marker = L.marker([-37.8425692, 144.8832702], {
+		icon: info9_Icon
+	})
+    .bindPopup(info9_Popup).openPopup()
+    .bindTooltip(MText)
+    ;
+    info9_Marker.addTo(mymap);
+
+    /* Adds info10 marker and popup */
+    MText = '<b>10 Here @ ~12:45pm</b>';
+    var info10_Icon = L.icon({
+        iconUrl: 'Images/Information.png',
+        //iconSize: [30, ],
+        iconAnchor: [10, 10],
+        popupAnchor: [0, 0],
+	});
+	var info10_Popup = L.popup()
+        .setContent (MText + '<br>Ring/message Claire')
+    ;
+    var info10_Marker = L.marker([-37.8003899, 144.9063565], {
+		icon: info10_Icon
+	})
+    .bindPopup(info10_Popup).openPopup()
+    .bindTooltip(MText)
+    ;
+    info10_Marker.addTo(mymap);
+
+    /* Adds info11 marker and popup */
+    MText = '<b>11 Here @ ~12:55pm</b>';
+    var info11_Icon = L.icon({
+        iconUrl: 'Images/Information.png',
+        //iconSize: [30, ],
+        iconAnchor: [10, 10],
+        popupAnchor: [0, 0],
+	});
+	var info11_Popup = L.popup()
+        .setContent (MText + '<br>Ring/message Claire')
+    ;
+    var info11_Marker = L.marker([-37.8100161, 144.9501777], {
+		icon: info11_Icon
+	})
+    .bindPopup(info11_Popup).openPopup()
+    .bindTooltip(MText)
+    ;
+    info11_Marker.addTo(mymap);
+
+    /* Adds finish marker and popup */
+    MText = '<b>12 Finish @ ~ 1:05pm</b>';
+    var finish_Icon = L.icon({
+        iconUrl: 'Images/Flag,_Green.png',
+        //iconSize: [30, ],
+        iconAnchor: [10, 10],
+        popupAnchor: [0, 0],
+	});
+	var finish_Popup = L.popup()
+        .setContent (MText + '<br>Birrarung Marr<br />Lower Terrace')
+    ;
+    var finish_Marker = L.marker([-37.8185984, 144.9733201], {
+		icon: finish_Icon
+	})
+    .bindPopup(finish_Popup).openPopup()
+    .bindTooltip(MText)
+    ;
+    finish_Marker.addTo(mymap);
+
+
+    /* Sets map layers fro side panel */
+    var baseLayers = [
+        {		
+            group: "Maps",
+            collapsed: true,
+            layers: [
+                {
+                    name: "MapBox Streets",
+                    layer: mboxLayer
+                },
+                {
+                    name: "Mapbox Outdoors",
+                    layer: L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoiZGF2ZWpkNDMxNzgiLCJhIjoiY2puZ3ByeTlhMDFicDNrcG1yMjlkcmxjciJ9.4_vjg7yVBgk-CZtkol42Ig', { 
+                    maxZoom: 23,
+                    attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors | ' +
+                    'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>' +
+                    Att_Com,
+                    id: 'mapbox.outdoors' })
+                },
+                {
+                    name: "Mapbox Light",
+                    layer: L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoiZGF2ZWpkNDMxNzgiLCJhIjoiY2puZ3ByeTlhMDFicDNrcG1yMjlkcmxjciJ9.4_vjg7yVBgk-CZtkol42Ig', { 
+                    maxZoom: 23,
+                    attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors | ' +
+                    'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>' +
+                    Att_Com,
+                    id: 'mapbox.light' })
+                },
+                {
+                    name: "Open Street Map",
+                    layer: L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { 
+                    maxZoom: 23,
+                    attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors' +
+                    Att_Com,
+                    })
+                },
+                {
+                    name: "Open Cycle Map",
+                    layer: L.tileLayer('https://tile.thunderforest.com/cycle/{z}/{x}/{y}.png?apikey=06003a6a184c48be994d17d414a7746e', { 
+                    maxZoom: 23,
+                    attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors' +
+                    Att_Com,
+                    })
+                }
+            ]
+        }
+    ];
+	
+    /* Sets Track layers in side panel */
+    var overLayers = [
+        {
+            group: "<i><b>Final Day : 30th Oct 2011<b/><i/>",
+            //collapsed: true,
+            layers: [
+        
+                {
+                    name: '<b>00 Depart 8am</b><br>Depart from<br />Caledonian Caravan Park<br />45 Jopling St<br />Ballan VIC 3342',
+                    layer: StartMarker                    
+                },
+                {
+                    name: '<b>01 Here @ ~8:40am</b>',
+                    layer: info1_Marker
+                },
+                {
+                    name: '<b>02 Here @ ~9:25am</b>',
+                    layer: info2_Marker
+                },
+                {
+                    name: '<b>03 Here @ ~9:40am</b>',
+                    layer: info3_Marker
+                },
+                {
+                    name: '<b>04 Rest Stop arrive @ ~10:15am</b><br>Ring/Message Claire<br />Depart ~10:45am',
+                    layer: rest1_Marker
+                },
+                {
+                    name: '<b>05 Here @ ~11:15am</b>',
+                    layer: info5_Marker
+                },
+                {
+                    name: '<b>06 Here @ ~11:30am</b>',
+                    layer: info6_Marker
+                },
+                {
+                    name: '<b>07 Here @ ~11:45am</b>',
+                    layer: info7_Marker
+                },
+                {
+                    name: '<b>08 Here @ ~12noon</b><br>Ring/message Claire',
+                    layer: info8_Marker
+                },
+                {
+                    name: '<b>09 Here @ ~12:30pm</b><br>Ring/message Claire',
+                    layer: info9_Marker
+                },
+                {
+                    name: '<b>10 Here @ ~12:45pm</b><br>Ring/message Claire',
+                    layer: info10_Marker
+                },
+                {
+                    name: '<b>11 Here @ ~12:55pm</b><br>Ring/message Claire',
+                    layer: info11_Marker
+                },
+                {
+                    name: '<b>12 Finish @ ~ 1:05pm</b><br>Birrarung Marr<br />Lower Terrace',
+                    layer: finish_Marker
+                }
+            ]
+        }
+    ];
+
+    /* Sets control for side panel */
+    var panelLayers = new L.Control.PanelLayers(baseLayers, overLayers, {
+            //compact: true,
+            //collapsed: true,
+            collapsibleGroups: true,
+            //title: "Map Options"
+        });
+
+    /* Adds side panel to map */
+    mymap.addControl(panelLayers);
+
+
+
+</script>
+
+</body>
+</html>
