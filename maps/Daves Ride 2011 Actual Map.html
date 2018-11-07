@@ -10,14 +10,11 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.4/dist/leaflet.css" >
     <link rel="stylesheet" href="leaflet-panel-layers-1.2.4/src/leaflet-panel-layers.css" />
     <link rel="stylesheet" href="Leaflet.defaultextent-0.0.2/dist/leaflet.defaultextent.css" />
-    <link rel="stylesheet" href="TitleText_Actual.css"/>
+    <link rel="stylesheet" href="TitleText.css"/>
 	
 	<script src="https://unpkg.com/leaflet@1.3.4/dist/leaflet.js" ></script>
 	<script src="leaflet-panel-layers-1.2.4/src/leaflet-panel-layers.js"></script>
-
     <script src="https://api.mapbox.com/mapbox.js/plugins/leaflet-omnivore/v0.2.0/leaflet-omnivore.min.js"></script>
-    
-
     <script src="leaflet.fullscreen-1.1.4/Control.FullScreen.js"></script>
     <script src="Leaflet.defaultextent-0.0.2/dist/leaflet.defaultextent.js"></script>
 
@@ -42,7 +39,7 @@
 <body>
 
 <div id="mapid">
-    <h1></h1>
+    <h1 mytitle = "Dave's Ride 2011 : All days actual as ridden"></h1>
 </div>
 
 <script language="JavaScript" type="text/javascript">
@@ -51,7 +48,7 @@
 	var kml_s = [
         ['KML Files Actual/25_09_2011 9_51_05 AM_history_r1.kml', '#e60000', 'Day 1 - 25th Sep 2011'], 
 		['KML Files Actual/26_09_2011 7_21_23 AM_history_r1.kml', '#e67500', 'Day 2 - 26th Sep 2011'],
-		['KML Files Actual/27_09_2011 8_50_24 AM_history_r1.kml', '#ffff00', 'Day 2 Part 2 - 27th Sep 2011'],
+		['KML Files Actual/27_09_2011 8_50_24 AM_history_r1.kml', '#ffff00', 'Day 2 Pt 2 - 27th Sep 2011'],
 		['KML Files Actual/28_09_2011 7_32_59 AM_history_r1.kml', '#71e600', 'Day 4 - 28th Sep 2011'],
 		['KML Files Actual/29_09_2011 7_27_04 AM_history_r1.kml', '#33cc00', 'Day 5 - 29th Sep 2011'],
 		['KML Files Actual/30_09_2011 8_03_38 AM_history_r1.kml', '#00ffcc', 'Day 6 - 30th Sep 2011'],
@@ -81,6 +78,11 @@
 		];
 
     /* 	Set up global variables */
+    var lat_nE_1
+	var lng_nE_1
+	var lat_sW_1
+	var lng_sW_1
+	var bnds_1
     var bnds_2
 	var kml = [];
     var Att_Com = ' | Side Panel &copy; <a href="https://github.com/stefanocudini/leaflet-panel-layers/blob/master/license.txt">2015-2017 Stefano Cudini</a> | '+
@@ -116,9 +118,29 @@
     mymap.on('exitFullscreen', function(){
         if(window.console) window.console.log('exitFullscreen');
         });
-	
-/*  Track layers 0 to 28, imported from KML Actual files */
-    for (i = 0; i < 29 ; i++) {    //29
+
+    /* Track layer 0, imported from KML Actual file. Sets lat_nE_1, lng_nE_1, lat_sW_1, lng_sW_1 to initial values */
+    kml[0] = new omnivore.kml(kml_s[0][0])
+        .bindPopup(kml_s[0][2])
+        .bindTooltip(kml_s[0][2])
+        .on('ready', function(e) {
+        this.setStyle({
+            color: kml_s[0][1],
+            opacity: .8,
+            weight: 4,
+            lineCap: 'round'
+        })
+        bnds_1 = (e.target.getBounds())
+        lat_nE_1 = bnds_1._northEast.lat
+        lng_nE_1 = bnds_1._northEast.lng
+        lat_sW_1 = bnds_1._southWest.lat
+        lng_sW_1 = bnds_1._southWest.lng
+        ;
+        });
+    mymap.addLayer(kml[0]);
+
+/*  Track layers 1 to 27, imported from KML Actual files */
+    for (i = 1; i < 28 ; i++) {    //29
         Load_KMLs(kml_s[i][0] ,kml_s[i][1]);   
         }
 
@@ -133,10 +155,40 @@
             weight: 4,
             lineCap: 'round'
         })
+        bnds_1 = (e.target.getBounds())
+        if (bnds_1._northEast.lat > lat_nE_1){lat_nE_1 = bnds_1._northEast.lat}
+        if (bnds_1._northEast.lng > lng_nE_1){lng_nE_1 = bnds_1._northEast.lng}
+        if (bnds_1._southWest.lat < lat_sW_1){lat_sW_1 = bnds_1._southWest.lat}
+        if (bnds_1._southWest.lng < lng_sW_1){lng_sW_1 = bnds_1._southWest.lng}
         });
         mymap.addLayer(kml[i]);
         }   
-     
+
+    /* Track layer 28, imported from KML file. Fits map to bounds of all tracks */
+    kml[28] = new omnivore.kml(kml_s[28][0])
+        .bindPopup(kml_s[28][2])
+        .bindTooltip(kml_s[28][2])
+        .on('ready', function(e) {
+        this.setStyle({
+            color: kml_s[28][1],
+            opacity: .8,
+            weight: 4,
+            lineCap: 'round'
+        })
+            bnds_1 = (e.target.getBounds())
+        if (bnds_1._northEast.lat > lat_nE_1){lat_nE_1 = bnds_1._northEast.lat}
+        if (bnds_1._northEast.lng > lng_nE_1){lng_nE_1 = bnds_1._northEast.lng}
+        if (bnds_1._southWest.lat < lat_sW_1){lat_sW_1 = bnds_1._southWest.lat}
+        if (bnds_1._southWest.lng < lng_sW_1){lng_sW_1 = bnds_1._southWest.lng}
+        bnds_1._northEast.lat = lat_nE_1
+        bnds_1._northEast.lng = lng_nE_1
+        bnds_1._southWest.lat = lat_sW_1
+        bnds_1._southWest.lng = lng_sW_1
+        mymap.fitBounds(bnds_1)
+        ;
+        });
+    mymap.addLayer(kml[28]);
+
     /* Set up click on track & zoom map to Track */
     function onTrackclick(e){
         bnds_2 = e.target

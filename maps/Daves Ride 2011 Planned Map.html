@@ -39,7 +39,7 @@
 <body>
 
 <div id="mapid">
-    <h1></h1>
+    <h1 mytitle = "Dave's Ride 2011 : Route as planned"></h1>
 </div>
 
 <script language="JavaScript" type="text/javascript">
@@ -77,6 +77,11 @@
 		];
 
     /* 	Set up global variables */
+    var lat_nE_1
+	var lng_nE_1
+	var lat_sW_1
+	var lng_sW_1
+	var bnds_1
     var bnds_2
 	var kml = [];
     var Att_Com = ' | Side Panel &copy; <a href="https://github.com/stefanocudini/leaflet-panel-layers/blob/master/license.txt">2015-2017 Stefano Cudini</a> | '+
@@ -113,8 +118,29 @@
         if(window.console) window.console.log('exitFullscreen');
         });
 	
-/*  Track layers 0 to 27, imported from KML files */
-    for (i = 0; i < 28 ; i++) {    //28
+    /* Track layer 0, imported from KML file. Sets lat_nE_1, lng_nE_1, lat_sW_1, lng_sW_1 to initial values */
+    kml[0] = new omnivore.kml(kml_s[0][0])
+        .bindPopup(kml_s[0][2])
+        .bindTooltip(kml_s[0][2])
+        .on('ready', function(e) {
+        this.setStyle({
+            color: kml_s[0][1],
+            opacity: .8,
+            weight: 4,
+            lineCap: 'round'
+        })
+        bnds_1 = (e.target.getBounds())
+        lat_nE_1 = bnds_1._northEast.lat
+        lng_nE_1 = bnds_1._northEast.lng
+        lat_sW_1 = bnds_1._southWest.lat
+        lng_sW_1 = bnds_1._southWest.lng
+        ;
+        });
+    mymap.addLayer(kml[0]);
+
+
+    /*  Track layers 1 to 26, imported from KML files */
+    for (i = 1; i < 27 ; i++) {    //28
         Load_KMLs(kml_s[i][0] ,kml_s[i][1]);   
         }
 
@@ -129,10 +155,40 @@
             weight: 4,
             lineCap: 'round'
         })
+        bnds_1 = (e.target.getBounds())
+        if (bnds_1._northEast.lat > lat_nE_1){lat_nE_1 = bnds_1._northEast.lat}
+        if (bnds_1._northEast.lng > lng_nE_1){lng_nE_1 = bnds_1._northEast.lng}
+        if (bnds_1._southWest.lat < lat_sW_1){lat_sW_1 = bnds_1._southWest.lat}
+        if (bnds_1._southWest.lng < lng_sW_1){lng_sW_1 = bnds_1._southWest.lng}
         });
         mymap.addLayer(kml[i]);
         }   
-     
+
+    /* Track layer 27, imported from KML file. Fits map to bounds of all tracks */
+    kml[27] = new omnivore.kml(kml_s[27][0])
+        .bindPopup(kml_s[27][2])
+        .bindTooltip(kml_s[27][2])
+        .on('ready', function(e) {
+        this.setStyle({
+            color: kml_s[27][1],
+            opacity: .8,
+            weight: 4,
+            lineCap: 'round'
+        })
+            bnds_1 = (e.target.getBounds())
+        if (bnds_1._northEast.lat > lat_nE_1){lat_nE_1 = bnds_1._northEast.lat}
+        if (bnds_1._northEast.lng > lng_nE_1){lng_nE_1 = bnds_1._northEast.lng}
+        if (bnds_1._southWest.lat < lat_sW_1){lat_sW_1 = bnds_1._southWest.lat}
+        if (bnds_1._southWest.lng < lng_sW_1){lng_sW_1 = bnds_1._southWest.lng}
+        bnds_1._northEast.lat = lat_nE_1
+        bnds_1._northEast.lng = lng_nE_1
+        bnds_1._southWest.lat = lat_sW_1
+        bnds_1._southWest.lng = lng_sW_1
+        mymap.fitBounds(bnds_1)
+        ;
+        });
+    mymap.addLayer(kml[27]);
+
     /* Set up click on track & zoom map to Track */
     function onTrackclick(e){
         bnds_2 = e.target
