@@ -84,6 +84,7 @@
 	var lng_sW_1
 	var bnds_1
     var bnds_2
+    var bnds_Center
 	var kml = [];
     var Att_Com = ' | Side Panel &copy; <a href="https://github.com/stefanocudini/leaflet-panel-layers/blob/master/license.txt">2015-2017 Stefano Cudini</a> | '+
         '<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a> | ' +
@@ -97,9 +98,9 @@
         fullscreenControl: true,
         fullscreenControlOptions: { // optional
             title:"Toggle Fullscreen"}
-    }).setView([-34.034453, 130.913086], 6);
+    }).setView([-34.488373882460124, 132.51708984375], 6);
 
-    //var mymap = L.map('mapid').setView([-37.763658, 145.077896], 12);
+    //var mymap = L.map('mapid').setView([-34.488373882460124, 132.51708984375], 6);
 	mboxLayer = new 
 		L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoiZGF2ZWpkNDMxNzgiLCJhIjoiY2puZ3ByeTlhMDFicDNrcG1yMjlkcmxjciJ9.4_vjg7yVBgk-CZtkol42Ig', { 
 		maxZoom: 23,
@@ -182,9 +183,13 @@
         if (bnds_1._southWest.lng < lng_sW_1){lng_sW_1 = bnds_1._southWest.lng}
         bnds_1._northEast.lat = lat_nE_1
         bnds_1._northEast.lng = lng_nE_1
+        bnds_1._northEast.lng = bnds_1._northEast.lng +5
         bnds_1._southWest.lat = lat_sW_1
         bnds_1._southWest.lng = lng_sW_1
         mymap.fitBounds(bnds_1)
+        //bnds_Center = mymap.getBounds().getCenter()
+        //console.log(bnds_Center)
+        //mymap.setView([bnds_Center.lat, bnds_Center.lng]);
         ;
         });
     mymap.addLayer(kml[28]);
