@@ -125,7 +125,7 @@
 	border-top:1px solid rgba(0,0,0,0.3);
 }
 .leaflet-panel-layers-item {
-	min-height: 20px;
+	min-height: 18px;
 }
 .leaflet-panel-layers-margin {
 	height: 25px;
@@ -151,10 +151,10 @@
 	border-radius: 3px;
 }
 .leaflet-panel-layers-overlays .leaflet-panel-layers-item {
-	margin-bottom: 3px;
+	margin-bottom: 1px;
 	color: blue;
 	font-style: italic;
-	padding: .3px;
+	padding: .1px;
 	letter-spacing: -.05rem;
 	background: #fff;
 	border: 1px solid rgba(0,0,0,0.3);
