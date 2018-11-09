@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="leaflet-panel-layers-1.2.4/src/leaflet-panel-layers.css" />
     <link rel="stylesheet" href="Leaflet.defaultextent-0.0.2/dist/leaflet.defaultextent.css" />
     <link rel="stylesheet" href="TitleText.css"/>
+    <link rel="stylesheet" href="footer.css"/>
 	
 	<script src="https://unpkg.com/leaflet@1.3.4/dist/leaflet.js" ></script>
 	<script src="leaflet-panel-layers-1.2.4/src/leaflet-panel-layers.js"></script>
@@ -40,11 +41,6 @@
 
 <div id="mapid">
     <h1 mytitle = "Dave's Ride 2011 : All days actual as ridden"></h1>
-    
-    <footer>
-    <p><b>The Finish !</b><br>Day 36, Final Day - 30th October 2011<br>Finished riding 1:15pm at Birrarung Marr</p>
-    </footer>
-
 </div>
 
 <script language="JavaScript" type="text/javascript">
@@ -89,7 +85,6 @@
 	var lng_sW_1
 	var bnds_1
     var bnds_2
-    var bnds_Center
 	var kml = [];
     var Att_Com = ' | Side Panel &copy; <a href="https://github.com/stefanocudini/leaflet-panel-layers/blob/master/license.txt">2015-2017 Stefano Cudini</a> | '+
         '<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a> | ' +
@@ -117,125 +112,52 @@
         });
         mymap.addLayer(mboxLayer);
 
-    // detect fullscreen toggling
-    mymap.on('enterFullscreen', function(){
-        if(window.console) window.console.log('enterFullscreen');
-        });
-    mymap.on('exitFullscreen', function(){
-        if(window.console) window.console.log('exitFullscreen');
-        });
+    /*Track layers 0 to 28, imported from KML Actual files and set map bounds */
+    let filesLoaded = 0;
+    
+    for (var i = 0; i < kml_s.length; i++) {
+        let myfile = kml_s[i][0];
+        let mycolor = kml_s[i][1];
 
-    /* Track layer 0, imported from KML Actual file. Sets lat_nE_1, lng_nE_1, lat_sW_1, lng_sW_1 to initial values */
-    kml[0] = new omnivore.kml(kml_s[0][0])
-        .bindPopup(kml_s[0][2])
-        .bindTooltip(kml_s[0][2])
-        .on('ready', function(e) {
-        this.setStyle({
-            color: kml_s[0][1],
-            opacity: .8,
-            weight: 4,
-            lineCap: 'round'
-        })
-        bnds_1 = (e.target.getBounds())
-        lat_nE_1 = bnds_1._northEast.lat
-        lng_nE_1 = bnds_1._northEast.lng
-        lat_sW_1 = bnds_1._southWest.lat
-        lng_sW_1 = bnds_1._southWest.lng
-        ;
-        });
-    mymap.addLayer(kml[0]);
-
-/*  Track layers 1 to 27, imported from KML Actual files */
-    for (i = 1; i < 28 ; i++) {    //29
-        Load_KMLs(kml_s[i][0] ,kml_s[i][1]);   
-        }
-
-        function Load_KMLs(myfile, mycolor) {
         kml[i] = new omnivore.kml(myfile)
-        .bindPopup(kml_s[i][2])
-        .bindTooltip(kml_s[i][2])
-        .on('ready', function(e) {
-        this.setStyle({
-            color: mycolor,
-            opacity: .8,
-            weight: 4,
-            lineCap: 'round'
-        })
-        bnds_1 = (e.target.getBounds())
-        if (bnds_1._northEast.lat > lat_nE_1){lat_nE_1 = bnds_1._northEast.lat}
-        if (bnds_1._northEast.lng > lng_nE_1){lng_nE_1 = bnds_1._northEast.lng}
-        if (bnds_1._southWest.lat < lat_sW_1){lat_sW_1 = bnds_1._southWest.lat}
-        if (bnds_1._southWest.lng < lng_sW_1){lng_sW_1 = bnds_1._southWest.lng}
-        });
-        mymap.addLayer(kml[i]);
-        }   
+            .bindPopup(kml_s[i][2])
+            .bindTooltip(kml_s[i][2])
+            .on('ready', function(e) {
+                //console.log(i, mycolor)
+                this.setStyle({
+                    color: mycolor,
+                    opacity: .8,
+                    weight: 4,
+                    lineCap: 'round'
+                })
+                bnds_1 = (e.target.getBounds())
+                if (typeof lat_nE_1 === 'undefined' || bnds_1._northEast.lat > lat_nE_1){lat_nE_1 = bnds_1._northEast.lat}
+                if (typeof lng_nE_1 === 'undefined' || bnds_1._northEast.lng > lng_nE_1){lng_nE_1 = bnds_1._northEast.lng}
+                if (typeof lat_sW_1 === 'undefined' || bnds_1._southWest.lat < lat_sW_1){lat_sW_1 = bnds_1._southWest.lat}
+                if (typeof lng_sW_1 === 'undefined' || bnds_1._southWest.lng < lng_sW_1){lng_sW_1 = bnds_1._southWest.lng}
 
-    /* Track layer 28, imported from KML file. Fits map to bounds of all tracks */
-    kml[28] = new omnivore.kml(kml_s[28][0])
-        .bindPopup(kml_s[28][2])
-        .bindTooltip(kml_s[28][2])
-        .on('ready', function(e) {
-        this.setStyle({
-            color: kml_s[28][1],
-            opacity: .8,
-            weight: 4,
-            lineCap: 'round'
-        })
-            bnds_1 = (e.target.getBounds())
-        if (bnds_1._northEast.lat > lat_nE_1){lat_nE_1 = bnds_1._northEast.lat}
-        if (bnds_1._northEast.lng > lng_nE_1){lng_nE_1 = bnds_1._northEast.lng}
-        if (bnds_1._southWest.lat < lat_sW_1){lat_sW_1 = bnds_1._southWest.lat}
-        if (bnds_1._southWest.lng < lng_sW_1){lng_sW_1 = bnds_1._southWest.lng}
-        bnds_1._northEast.lat = lat_nE_1
-        bnds_1._northEast.lng = lng_nE_1
-        bnds_1._northEast.lng = bnds_1._northEast.lng +9
-        bnds_1._southWest.lat = lat_sW_1
-        bnds_1._southWest.lng = lng_sW_1
-        mymap.fitBounds(bnds_1)
-        //bnds_Center = mymap.getBounds().getCenter()
-        //console.log(bnds_Center)
-        //mymap.setView([bnds_Center.lat, bnds_Center.lng]);
-        ;
-        });
-    mymap.addLayer(kml[28]);
+                filesLoaded++;
+
+                if (filesLoaded === kml_s.length) {
+                    bnds_1._northEast.lat = lat_nE_1
+                    bnds_1._northEast.lng = lng_nE_1 +9
+                    bnds_1._southWest.lat = lat_sW_1
+                    bnds_1._southWest.lng = lng_sW_1
+                    mymap.fitBounds(bnds_1)
+                }
+            });
+
+        mymap.addLayer(kml[i]);
+        kml[i].on('click', onTrackclick);
+    }
 
     /* Set up click on track & zoom map to Track */
     function onTrackclick(e){
         bnds_2 = e.target
         mymap.fitBounds(bnds_2.getBounds());
     }
-    
-    kml[0].on('click', onTrackclick);
-    kml[1].on('click', onTrackclick);
-    kml[2].on('click', onTrackclick);
-    kml[3].on('click', onTrackclick);
-    kml[4].on('click', onTrackclick);
-    kml[5].on('click', onTrackclick);
-    kml[6].on('click', onTrackclick);
-    kml[7].on('click', onTrackclick);
-    kml[8].on('click', onTrackclick);
-    kml[9].on('click', onTrackclick);
-    kml[10].on('click', onTrackclick);
-    kml[11].on('click', onTrackclick);
-    kml[12].on('click', onTrackclick);
-    kml[13].on('click', onTrackclick);
-    kml[14].on('click', onTrackclick);
-    kml[15].on('click', onTrackclick);
-    kml[16].on('click', onTrackclick);
-    kml[17].on('click', onTrackclick);
-    kml[18].on('click', onTrackclick);
-    kml[19].on('click', onTrackclick);
-    kml[20].on('click', onTrackclick);
-    kml[21].on('click', onTrackclick);
-    kml[22].on('click', onTrackclick);
-    kml[23].on('click', onTrackclick);
-    kml[24].on('click', onTrackclick);
-    kml[25].on('click', onTrackclick);
-    kml[26].on('click', onTrackclick);
-    kml[27].on('click', onTrackclick);
-    kml[28].on('click', onTrackclick);
                                                         
-    /* Sets map layers fro side panel */
+    /* Sets map layers for side panel */
     var baseLayers = [
         {		
             group: "Maps",
@@ -266,7 +188,7 @@
                 {
                     name: "Open Street Map",
                     layer: L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { 
-                    maxZoom: 23,
+                    maxZoom: 19,
                     attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors' +
                     Att_Com,
                     })
@@ -432,9 +354,13 @@
         .setContent ('<b>The Finish !</b><br>Day 36, Final Day - 30th October 2011<br>Finished riding 1:15pm at Birrarung Marr')
     ;
 
-    L.marker([-37.818751, 144.97285], {
+    const mymarker = L.marker([-37.818751, 144.97285], {
 		icon: myIcon
-	}).addTo(mymap).bindPopup(myPopup).openPopup();
+	}).addTo(mymap).bindPopup(myPopup);
+
+    setTimeout(function(){
+        mymarker.openPopup();
+    }, 0);
 
 </script>
 

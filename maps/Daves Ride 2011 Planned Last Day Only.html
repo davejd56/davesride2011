@@ -44,7 +44,7 @@
 
 <script language="JavaScript" type="text/javascript">
 
-        /* set up array holding details of the 27 KML tracks */
+    /* set up array holding details of the KML tracks , only one track this time*/
 	var kml_s = ['KML Files/2b_Day 36_V5_FinalDay.kml', '#e60000', 'Day 36 - Final Day 30th Oct 2011'];
 
     /* 	Set up global variables */
@@ -78,14 +78,6 @@
         });
         mymap.addLayer(mboxLayer); 
 
-    // detect fullscreen toggling
-    mymap.on('enterFullscreen', function(){
-        if(window.console) window.console.log('enterFullscreen');
-        });
-    mymap.on('exitFullscreen', function(){
-        if(window.console) window.console.log('exitFullscreen');
-        });
-	
     /* Track layer 0, imported from KML file. Sets lat_nE_1, lng_nE_1, lat_sW_1, lng_sW_1 to initial values */
     var kml_1 = new omnivore.kml(kml_s[0])
         .bindPopup(kml_s[2])
@@ -390,7 +382,7 @@
                 {
                     name: "Open Street Map",
                     layer: L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { 
-                    maxZoom: 23,
+                    maxZoom: 19,
                     attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors' +
                     Att_Com,
                     })
@@ -481,9 +473,6 @@
     /* Adds side panel to map */
     mymap.addControl(panelLayers);
 
-
-
 </script>
-
 </body>
 </html>

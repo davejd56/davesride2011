@@ -109,121 +109,53 @@
 		id: 'mapbox.streets'
         });
         mymap.addLayer(mboxLayer); 
-
-    // detect fullscreen toggling
-    mymap.on('enterFullscreen', function(){
-        if(window.console) window.console.log('enterFullscreen');
-        });
-    mymap.on('exitFullscreen', function(){
-        if(window.console) window.console.log('exitFullscreen');
-        });
 	
-    /* Track layer 0, imported from KML file. Sets lat_nE_1, lng_nE_1, lat_sW_1, lng_sW_1 to initial values */
-    kml[0] = new omnivore.kml(kml_s[0][0])
-        .bindPopup(kml_s[0][2])
-        .bindTooltip(kml_s[0][2])
-        .on('ready', function(e) {
-        this.setStyle({
-            color: kml_s[0][1],
-            opacity: .8,
-            weight: 4,
-            lineCap: 'round'
-        })
-        bnds_1 = (e.target.getBounds())
-        lat_nE_1 = bnds_1._northEast.lat
-        lng_nE_1 = bnds_1._northEast.lng
-        lat_sW_1 = bnds_1._southWest.lat
-        lng_sW_1 = bnds_1._southWest.lng
-        ;
-        });
-    mymap.addLayer(kml[0]);
+    //Load 28 tracks and set map bounds
+    let filesLoaded = 0;
+    
+    for (var i = 0; i < kml_s.length; i++) {
+        let myfile = kml_s[i][0];
+        let mycolor = kml_s[i][1];
 
-
-    /*  Track layers 1 to 26, imported from KML files */
-    for (i = 1; i < 27 ; i++) {    //28
-        Load_KMLs(kml_s[i][0] ,kml_s[i][1]);   
-        }
-
-        function Load_KMLs(myfile, mycolor) {
         kml[i] = new omnivore.kml(myfile)
-        .bindPopup(kml_s[i][2])
-        .bindTooltip(kml_s[i][2])
-        .on('ready', function(e) {
-        this.setStyle({
-            color: mycolor,
-            opacity: .8,
-            weight: 4,
-            lineCap: 'round'
-        })
-        bnds_1 = (e.target.getBounds())
-        if (bnds_1._northEast.lat > lat_nE_1){lat_nE_1 = bnds_1._northEast.lat}
-        if (bnds_1._northEast.lng > lng_nE_1){lng_nE_1 = bnds_1._northEast.lng}
-        if (bnds_1._southWest.lat < lat_sW_1){lat_sW_1 = bnds_1._southWest.lat}
-        if (bnds_1._southWest.lng < lng_sW_1){lng_sW_1 = bnds_1._southWest.lng}
-        });
-        mymap.addLayer(kml[i]);
-        }   
+            .bindPopup(kml_s[i][2])
+            .bindTooltip(kml_s[i][2])
+            .on('ready', function(e) {
+                //console.log(i, mycolor)
+                this.setStyle({
+                    color: mycolor,
+                    opacity: .8,
+                    weight: 4,
+                    lineCap: 'round'
+                })
+                bnds_1 = (e.target.getBounds())
+                if (typeof lat_nE_1 === 'undefined' || bnds_1._northEast.lat > lat_nE_1){lat_nE_1 = bnds_1._northEast.lat}
+                if (typeof lng_nE_1 === 'undefined' || bnds_1._northEast.lng > lng_nE_1){lng_nE_1 = bnds_1._northEast.lng}
+                if (typeof lat_sW_1 === 'undefined' || bnds_1._southWest.lat < lat_sW_1){lat_sW_1 = bnds_1._southWest.lat}
+                if (typeof lng_sW_1 === 'undefined' || bnds_1._southWest.lng < lng_sW_1){lng_sW_1 = bnds_1._southWest.lng}
 
-    /* Track layer 27, imported from KML file. Fits map to bounds of all tracks */
-    kml[27] = new omnivore.kml(kml_s[27][0])
-        .bindPopup(kml_s[27][2])
-        .bindTooltip(kml_s[27][2])
-        .on('ready', function(e) {
-        this.setStyle({
-            color: kml_s[27][1],
-            opacity: .8,
-            weight: 4,
-            lineCap: 'round'
-        })
-            bnds_1 = (e.target.getBounds())
-        if (bnds_1._northEast.lat > lat_nE_1){lat_nE_1 = bnds_1._northEast.lat}
-        if (bnds_1._northEast.lng > lng_nE_1){lng_nE_1 = bnds_1._northEast.lng}
-        if (bnds_1._southWest.lat < lat_sW_1){lat_sW_1 = bnds_1._southWest.lat}
-        if (bnds_1._southWest.lng < lng_sW_1){lng_sW_1 = bnds_1._southWest.lng}
-        bnds_1._northEast.lat = lat_nE_1
-        bnds_1._northEast.lng = lng_nE_1 +9
-        bnds_1._southWest.lat = lat_sW_1
-        bnds_1._southWest.lng = lng_sW_1
-        mymap.fitBounds(bnds_1)
-        ;
-        });
-    mymap.addLayer(kml[27]);
+                filesLoaded++;
+
+                if (filesLoaded === kml_s.length) {
+                    bnds_1._northEast.lat = lat_nE_1
+                    bnds_1._northEast.lng = lng_nE_1 +9
+                    bnds_1._southWest.lat = lat_sW_1
+                    bnds_1._southWest.lng = lng_sW_1
+                    mymap.fitBounds(bnds_1)
+                }
+            });
+
+        mymap.addLayer(kml[i]);
+        kml[i].on('click', onTrackclick);
+    }
 
     /* Set up click on track & zoom map to Track */
     function onTrackclick(e){
         bnds_2 = e.target
         mymap.fitBounds(bnds_2.getBounds());
     }
-    kml[0].on('click', onTrackclick);
-    kml[1].on('click', onTrackclick);
-    kml[2].on('click', onTrackclick);
-    kml[3].on('click', onTrackclick);
-    kml[4].on('click', onTrackclick);
-    kml[5].on('click', onTrackclick);
-    kml[6].on('click', onTrackclick);
-    kml[7].on('click', onTrackclick);
-    kml[8].on('click', onTrackclick);
-    kml[9].on('click', onTrackclick);
-    kml[10].on('click', onTrackclick);
-    kml[11].on('click', onTrackclick);
-    kml[12].on('click', onTrackclick);
-    kml[13].on('click', onTrackclick);
-    kml[14].on('click', onTrackclick);
-    kml[15].on('click', onTrackclick);
-    kml[16].on('click', onTrackclick);
-    kml[17].on('click', onTrackclick);
-    kml[18].on('click', onTrackclick);
-    kml[19].on('click', onTrackclick);
-    kml[20].on('click', onTrackclick);
-    kml[21].on('click', onTrackclick);
-    kml[22].on('click', onTrackclick);
-    kml[23].on('click', onTrackclick);
-    kml[24].on('click', onTrackclick);
-    kml[25].on('click', onTrackclick);
-    kml[26].on('click', onTrackclick);
-    kml[27].on('click', onTrackclick);
-                                                        
-    /* Sets map layers fro side panel */
+                                                       
+    /* Sets map layers for side panel */
     var baseLayers = [
         {		
             group: "Maps",
@@ -254,7 +186,7 @@
                 {
                     name: "Open Street Map",
                     layer: L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { 
-                    maxZoom: 23,
+                    maxZoom: 19,
                     attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors' +
                     Att_Com,
                     })
