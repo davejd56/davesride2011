@@ -7,15 +7,16 @@
 	<meta charset="utf-8" >
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.4/dist/leaflet.css" >
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.4/dist/leaflet.css" />
     <link rel="stylesheet" href="leaflet-panel-layers-1.2.4/src/leaflet-panel-layers.css" />
+    <link rel="stylesheet" href="https://api.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v1.0.1/leaflet.fullscreen.css" />    
     <link rel="stylesheet" href="Leaflet.defaultextent-0.0.2/dist/leaflet.defaultextent.css" />
-    <link rel="stylesheet" href="TitleText.css"/>
+    <link rel="stylesheet" href="TitleText.css" />
 	
 	<script src="https://unpkg.com/leaflet@1.3.4/dist/leaflet.js" ></script>
 	<script src="leaflet-panel-layers-1.2.4/src/leaflet-panel-layers.js"></script>
     <script src="https://api.mapbox.com/mapbox.js/plugins/leaflet-omnivore/v0.2.0/leaflet-omnivore.min.js"></script>
-    <script src="leaflet.fullscreen-1.1.4/Control.FullScreen.js"></script>
+    <script src='https://api.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v1.0.1/Leaflet.fullscreen.min.js'></script>
     <script src="Leaflet.defaultextent-0.0.2/dist/leaflet.defaultextent.js"></script>
 
 	<style type="text/css">
@@ -24,15 +25,7 @@
 		height: 100vh;
         margin: 0;
         }
-
-    /* FullScreen */
-		.leaflet-control-zoom-fullscreen { background-image: url(Images/icon-fullscreen.png); }
-		/* on selector per rule as explained here : http://www.sitepoint.com/html5-full-screen-api/ */
-		#mapid:-webkit-full-screen { width: 100% !important; height: 100% !important; z-index: 99999; }
-		#mapid:-moz-full-screen { width: 100% !important; height: 100% !important; z-index: 99999; }
-		#mapid:full-screen { width: 100% !important; height: 100% !important; z-index: 99999; }
-		.leaflet-pseudo-fullscreen { position: fixed !important; width: 100% !important; height: 100% !important; top: 0px !important; left: 0px !important; z-index: 99999; }
-	</style>
+    </style>
 
 </head>
 
@@ -84,18 +77,23 @@
 	var bnds_1
     var bnds_2
 	var kml = [];
-    var Att_Com = ' | Side Panel &copy; <a href="https://github.com/stefanocudini/leaflet-panel-layers/blob/master/license.txt">2015-2017 Stefano Cudini</a> | '+
-        '<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a> | ' +
-        'Full Screen &copy; <a href="https://github.com/brunob/leaflet.fullscreen/blob/master/LICENSE">2013, Bruno Bergot</a>'
+    var Att_Com = 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors | ' +
+        'Imagery © <a href="https://www.mapbox.com/">Mapbox</a> | ' +
+        'Side Panel &copy; <a href="https://github.com/stefanocudini/leaflet-panel-layers/blob/master/license.txt">2015-2017 Stefano Cudini</a> | '+
+        '<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>'
         
     /* Set up initial map layer */
     
     // Fullscreen & restore default zoom
     var mymap = L.map('mapid', {
         defaultExtentControl: true, 
-        fullscreenControl: true,
-        fullscreenControlOptions: { // optional
-            title:"Toggle Fullscreen"}
+        fullscreenControl: true
+/*         fullscreenControl: {
+        pseudoFullscreen: true // if true, fullscreen to page width and height
+    } */
+
+/*         fullscreenControlOptions: { // optional
+            title:"Toggle Fullscreen"} */
     });
 
     // var mymap = L.map('mapid').setView([-34.034453, 130.913086], 6),
@@ -103,9 +101,7 @@
 		L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoiZGF2ZWpkNDMxNzgiLCJhIjoiY2puZ3ByeTlhMDFicDNrcG1yMjlkcmxjciJ9.4_vjg7yVBgk-CZtkol42Ig', { 
 		maxZoom: 23,
         attribution:
-        'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors | ' +
-		'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>' + 
-        Att_Com,
+		Att_Com,
 		id: 'mapbox.streets'
         });
         mymap.addLayer(mboxLayer); 
@@ -169,8 +165,7 @@
                     name: "Mapbox Outdoors",
                     layer: L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoiZGF2ZWpkNDMxNzgiLCJhIjoiY2puZ3ByeTlhMDFicDNrcG1yMjlkcmxjciJ9.4_vjg7yVBgk-CZtkol42Ig', { 
                     maxZoom: 23,
-                    attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors | ' +
-                    'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>' +
+                    attribution:
                     Att_Com,
                     id: 'mapbox.outdoors' })
                 },
@@ -178,8 +173,7 @@
                     name: "Mapbox Light",
                     layer: L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoiZGF2ZWpkNDMxNzgiLCJhIjoiY2puZ3ByeTlhMDFicDNrcG1yMjlkcmxjciJ9.4_vjg7yVBgk-CZtkol42Ig', { 
                     maxZoom: 23,
-                    attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors | ' +
-                    'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>' +
+                    attribution:
                     Att_Com,
                     id: 'mapbox.light' })
                 },
@@ -187,7 +181,7 @@
                     name: "Open Street Map",
                     layer: L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { 
                     maxZoom: 19,
-                    attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors' +
+                    attribution:
                     Att_Com,
                     })
                 },
@@ -195,7 +189,7 @@
                     name: "Open Cycle Map",
                     layer: L.tileLayer('https://tile.thunderforest.com/cycle/{z}/{x}/{y}.png?apikey=06003a6a184c48be994d17d414a7746e', { 
                     maxZoom: 23,
-                    attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors' +
+                    attribution:
                     Att_Com,
                     })
                 }
