@@ -82,12 +82,20 @@
         'Side Panel &copy; <a href="https://github.com/stefanocudini/leaflet-panel-layers/blob/master/license.txt">2015-2017 Stefano Cudini</a> | '+
         '<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>'
         
+    /* Check for mobile safari browser */
+    var browser;
+    var agent = navigator.userAgent;
+        if(agent.indexOf("Mozilla/") != -1 && agent.indexOf("like Mac OS ") != -1 && agent.indexOf("like Gecko") != -1 && agent.indexOf("Mobile") != -1 && agent.indexOf("Safari") != -1){
+        browser = false;
+        }
+        else {browser = true;};
+
     /* Set up initial map layer */
     
     // Fullscreen & restore default zoom
     var mymap = L.map('mapid', {
         defaultExtentControl: true, 
-        fullscreenControl: true
+        fullscreenControl: browser
 /*         fullscreenControl: {
         pseudoFullscreen: true // if true, fullscreen to page width and height
     } */

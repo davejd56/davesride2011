@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html>
+<head>
+	
+	<title>Dave's Ride 2011</title>
+
+	<meta charset="utf-8" >
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.4/dist/leaflet.css" />
+    <link rel="stylesheet" href="leaflet-panel-layers-1.2.4/src/leaflet-panel-layers.css" />
+    <link rel="stylesheet" href="https://api.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v1.0.1/leaflet.fullscreen.css" />    
+    <link rel="stylesheet" href="Leaflet.defaultextent-0.0.2/dist/leaflet.defaultextent.css" />
+    <link rel="stylesheet" href="TitleText.css" />
+	
+	<script src="https://unpkg.com/leaflet@1.3.4/dist/leaflet.js" ></script>
+	<script src="leaflet-panel-layers-1.2.4/src/leaflet-panel-layers.js"></script>
+    <script src="https://api.mapbox.com/mapbox.js/plugins/leaflet-omnivore/v0.2.0/leaflet-omnivore.min.js"></script>
+    <script src='https://api.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v1.0.1/Leaflet.fullscreen.min.js'></script>
+    <script src="Leaflet.defaultextent-0.0.2/dist/leaflet.defaultextent.js"></script>
+
+	<style type="text/css">
+	html, body, #mapid {
+		width: 100vw;
+		height: 100vh;
+        margin: 0;
+        }
+    </style>
+
+</head>
+
+<body>
+
+<div id="mapid">
+    <h1 mytitle = "Dave's Ride 2011 : Route as planned"></h1>
+</div>
+
+<script language="JavaScript" type="text/javascript">
+
+        /* set up array holding details of the 28 KML tracks */
+	var kml_s = [
+		['KML Files/1_Day 1_V1.kml', '#e60000', 'Day 1 - Perth to Dawseville 95Km'], 
+		['KML Files/1a_Day 2_v1.kml', '#e67500', 'Day 2 - Dawseville to Margaret River 185Km'],
+		['KML Files/1b_Day 4_v1.kml', '#ffff00', 'Day 4 - Margaret River to Pemberton 139Km'],
+		['KML Files/1c_Day 5_v1.kml', '#71e600', 'Day 5 - Pemberton to Peaceful Bay 153Km'],
+		['KML Files/1d_Day 6_v1.kml', '#33cc00', 'Day 6 - Peaceful Bay to Albany 107Km'],
+		['KML Files/1f_Day 8_v1.kml', '#00ffcc', 'Day 8 - Albany to Jerramungup 178Km'],
+		['KML Files/1g_Day 9_v1.kml', '#00ccff', 'Day 9 - Jerramungup to Ravensthorpe 116Km'],
+		['KML Files/1h_Day 10_v1.kml', '#0071e6', 'Day 10 - Ravensthorpe to Esperance 184Km'],
+		['KML Files/1i_Day 13_v1.kml', '#0000e6', 'Day 13 - Esperance to Norseman 205Km'],
+		['KML Files/1j_Day 14_v1.kml', '#7500e6', 'Day 14 - Norseman to Balladonia 234Km'],
+		['KML Files/1j_Day 15_v1.kml', '#e60000', 'Day 15 - Balladonia to Caiguna 139Km'], 
+		['KML Files/1k_Day 16_v1.kml', '#e67500', 'Day 16 - Caiguna to Madura 157Km'],
+		['KML Files/1l_Day 17_v1.kml', '#ffff00', 'Day 17 - Madura to Mundrabilla 116Km'],
+		['KML Files/1m_Day 18_v1.kml', '#71e600', 'Day 18 - Mundrabilla to Border Village 78Km'],
+		['KML Files/1n_Day 19_v1.kml', '#33cc00', 'Day 19 - Border Village to Nullarbor 185Km'],
+		['KML Files/1o_Day 20_v1.kml', '#00ffcc', 'Day 20 - Nullarbor to Nundroo 143Km'],
+		['KML Files/1p_Day 21_v1.kml', '#00ccff', 'Day 21 - Nundroo to Ceduna 152Km'],
+		['KML Files/1q_Day 23_v1.kml', '#0071e6', 'Day 23 - Ceduna to Minnipa 173Km'],
+		['KML Files/1r_Day 24_v1.kml', '#0000e6', 'Day 24 - Minnipa to Kimba 139Km'],
+		['KML Files/1s_Day 25_v1.kml', '#7500e6', 'Day 25 - Kimba to Port Augusta 154Km'],
+		['KML Files/1t_Day 26_v1.kml', '#e60000', 'Day 26 - Port Augusta to Clare 199Km'],
+		['KML Files/1u_Day 29_v1.kml', '#e67500', 'Day 29 - Clare to Adelaide 128Km'],
+		['KML Files/1v_Day 30_v3.kml', '#ffff00', 'Day 30 -Adelaide to Wellington 126Km'],
+		['KML Files/1w_Day 31_v1.kml', '#71e600', 'Day 31 - Wellington to Bordertown 183Km'],
+		['KML Files/1x_Day 32_v1.kml', '#33cc00', 'Day 32 - Bordertown to Horsham 161Km'],
+		['KML Files/1y_Day 33_v1.kml', '#00ffcc', 'Day 33 - Horsham to Beauford 136Km'],
+		['KML Files/1z_Day 35_v1.kml', '#00ccff', 'Day 35 - Beauford to Ballan 93Km'],
+		['KML Files/2a_Day 36_V4.kml', '#0071e6', 'Day 36 - Ballan to Melbourne 104Km']
+		];
+
+    /* 	Set up global variables */
+    var lat_nE_1
+	var lng_nE_1
+	var lat_sW_1
+	var lng_sW_1
+	var bnds_1
+    var bnds_2
+	var kml = [];
+    var Att_Com = 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors | ' +
+        'Imagery © <a href="https://www.mapbox.com/">Mapbox</a> | ' +
+        'Side Panel &copy; <a href="https://github.com/stefanocudini/leaflet-panel-layers/blob/master/license.txt">2015-2017 Stefano Cudini</a> | '+
+        '<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>'
+        
+    /* Set up initial map layer */
+    
+    // Fullscreen & restore default zoom
+    var mymap = L.map('mapid', {
+        defaultExtentControl: true, 
+        fullscreenControl: true
+/*         fullscreenControl: {
+        pseudoFullscreen: true // if true, fullscreen to page width and height
+    } */
+
+/*         fullscreenControlOptions: { // optional
+            title:"Toggle Fullscreen"} */
+    });
+
+    // var mymap = L.map('mapid').setView([-34.034453, 130.913086], 6),
+	mboxLayer = new 
+		L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoiZGF2ZWpkNDMxNzgiLCJhIjoiY2puZ3ByeTlhMDFicDNrcG1yMjlkcmxjciJ9.4_vjg7yVBgk-CZtkol42Ig', { 
+		maxZoom: 23,
+        attribution:
+		Att_Com,
+		id: 'mapbox.streets'
+        });
+        mymap.addLayer(mboxLayer); 
+	
+    //Load 28 tracks and set map bounds
+    let filesLoaded = 0;
+    
+    for (var i = 0; i < kml_s.length; i++) {
+        let myfile = kml_s[i][0];
+        let mycolor = kml_s[i][1];
+
+        kml[i] = new omnivore.kml(myfile)
+            .bindPopup(kml_s[i][2])
+            .bindTooltip(kml_s[i][2])
+            .on('ready', function(e) {
+                //console.log(i, mycolor)
+                this.setStyle({
+                    color: mycolor,
+                    opacity: .8,
+                    weight: 4,
+                    lineCap: 'round'
+                })
+                bnds_1 = (e.target.getBounds())
+                if (typeof lat_nE_1 === 'undefined' || bnds_1._northEast.lat > lat_nE_1){lat_nE_1 = bnds_1._northEast.lat}
+                if (typeof lng_nE_1 === 'undefined' || bnds_1._northEast.lng > lng_nE_1){lng_nE_1 = bnds_1._northEast.lng}
+                if (typeof lat_sW_1 === 'undefined' || bnds_1._southWest.lat < lat_sW_1){lat_sW_1 = bnds_1._southWest.lat}
+                if (typeof lng_sW_1 === 'undefined' || bnds_1._southWest.lng < lng_sW_1){lng_sW_1 = bnds_1._southWest.lng}
+
+                filesLoaded++;
+
+                if (filesLoaded === kml_s.length) {
+                    bnds_1._northEast.lat = lat_nE_1
+                    bnds_1._northEast.lng = lng_nE_1 +9
+                    bnds_1._southWest.lat = lat_sW_1
+                    bnds_1._southWest.lng = lng_sW_1
+                    mymap.fitBounds(bnds_1)
+                }
+            });
+
+        mymap.addLayer(kml[i]);
+        kml[i].on('click', onTrackclick);
+    }
+
+    /* Set up click on track & zoom map to Track */
+    function onTrackclick(e){
+        bnds_2 = e.target
+        mymap.fitBounds(bnds_2.getBounds());
+    }
+                                                       
+    /* Sets map layers for side panel */
+    var baseLayers = [
+        {		
+            group: "Maps",
+            collapsed: true,
+            layers: [
+                {
+                    name: "MapBox Streets",
+                    layer: mboxLayer
+                },
+                {
+                    name: "Mapbox Outdoors",
+                    layer: L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoiZGF2ZWpkNDMxNzgiLCJhIjoiY2puZ3ByeTlhMDFicDNrcG1yMjlkcmxjciJ9.4_vjg7yVBgk-CZtkol42Ig', { 
+                    maxZoom: 23,
+                    attribution:
+                    Att_Com,
+                    id: 'mapbox.outdoors' })
+                },
+                {
+                    name: "Mapbox Light",
+                    layer: L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoiZGF2ZWpkNDMxNzgiLCJhIjoiY2puZ3ByeTlhMDFicDNrcG1yMjlkcmxjciJ9.4_vjg7yVBgk-CZtkol42Ig', { 
+                    maxZoom: 23,
+                    attribution:
+                    Att_Com,
+                    id: 'mapbox.light' })
+                },
+                {
+                    name: "Open Street Map",
+                    layer: L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { 
+                    maxZoom: 19,
+                    attribution:
+                    Att_Com,
+                    })
+                },
+                {
+                    name: "Open Cycle Map",
+                    layer: L.tileLayer('https://tile.thunderforest.com/cycle/{z}/{x}/{y}.png?apikey=06003a6a184c48be994d17d414a7746e', { 
+                    maxZoom: 23,
+                    attribution:
+                    Att_Com,
+                    })
+                }
+            ]
+        }
+    ];
+	
+    /* Sets Track layers in side panel */
+    var overLayers = [
+        {
+            group: "Planned route each day",
+            //collapsed: true,
+            layers: [
+        
+                {
+                    name: kml_s[0][2],
+                    layer: kml[0]                    
+                },
+                {
+                    name: kml_s[1][2],
+                    layer: kml[1]
+                },
+                {
+                    name: kml_s[2][2],
+                    layer: kml[2]
+                },
+                {
+                    name: kml_s[3][2],
+                    layer: kml[3]
+                },
+                {
+                    name: kml_s[4][2],
+                    layer: kml[4]
+                },				
+                {
+                    name: kml_s[5][2],
+                    layer: kml[5]
+                },				
+                {
+                    name: kml_s[6][2],
+                    layer: kml[6]
+                },				
+                {
+                    name: kml_s[7][2],
+                    layer: kml[7]
+                },				
+                {
+                    name: kml_s[8][2],
+                    layer: kml[8]
+                },				
+                {
+                    name: kml_s[9][2],
+                    layer: kml[9]
+                },				
+                {
+                    name: kml_s[10][2],
+                    layer: kml[10]
+                },				
+                {
+                    name: kml_s[11][2],
+                    layer: kml[11]
+                },				
+                {
+                    name: kml_s[12][2],
+                    layer: kml[12]
+                },				
+                {
+                    name: kml_s[13][2],
+                    layer: kml[13]
+                },				
+                {
+                    name: kml_s[14][2],
+                    layer: kml[14]
+                },				
+                {
+                    name: kml_s[15][2],
+                    layer: kml[15]
+                },				
+                {
+                    name: kml_s[16][2],
+                    layer: kml[16]
+                },				
+                {
+                    name: kml_s[17][2],
+                    layer: kml[17]
+                },				
+                {
+                    name: kml_s[18][2],
+                    layer: kml[18]
+                },				
+                {
+                    name: kml_s[19][2],
+                    layer: kml[19]
+                },				
+                {
+                    name: kml_s[20][2],
+                    layer: kml[20]
+                },				
+                {
+                    name: kml_s[21][2],
+                    layer: kml[21]
+                },				
+                {
+                    name: kml_s[22][2],
+                    layer: kml[22]
+                },				
+                {
+                    name: kml_s[23][2],
+                    layer: kml[23]
+                },
+                {
+                    name: kml_s[24][2],
+                    layer: kml[24]
+                },
+                {
+                    name: kml_s[25][2],
+                    layer: kml[25]
+                },
+                {
+                    name: kml_s[26][2],
+                    layer: kml[26]
+                },
+                {
+                    name: kml_s[27][2],
+                    layer: kml[27]
+                }
+            ]
+        }
+    ];
+
+    /* Sets control for side panel */
+    var panelLayers = new L.Control.PanelLayers(baseLayers, overLayers, {
+            //compact: true,
+            //collapsed: true,
+            collapsibleGroups: true,
+            //title: "Map Options"
+        });
+
+    /* Adds side panel to map */
+    mymap.addControl(panelLayers);
+
+</script>
+
+</body>
+</html>
