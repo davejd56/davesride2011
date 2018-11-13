@@ -56,21 +56,12 @@
         '<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a> | ' +
         'Full Screen &copy; <a href="https://github.com/brunob/leaflet.fullscreen/blob/master/LICENSE">2013, Bruno Bergot</a>'
         
-    /* Check for mobile safari browser */
-    var browser;
-    var agent = navigator.userAgent;
-        if(agent.indexOf("Mozilla/") != -1 && agent.indexOf("like Mac OS ") != -1 && agent.indexOf("like Gecko") != -1 && agent.indexOf("Mobile") != -1 && agent.indexOf("Safari") != -1){
-        browser = false;
-        }
-        else {browser = true;}
-    ;
-
     /* Set up initial map layer */
     
     // Fullscreen & restore default zoom
     var mymap = L.map('mapid', {
         defaultExtentControl: true, 
-        fullscreenControl: browser,
+        fullscreenControl: true,
         fullscreenControlOptions: { // optional
             title:"Toggle Fullscreen"}
     });
