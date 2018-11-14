@@ -92,14 +92,14 @@
         'Full Screen &copy; <a href="https://github.com/brunob/leaflet.fullscreen/blob/master/LICENSE">2013, Bruno Bergot</a>'
         
     /* Check for mobile safari browser */
-    var browser = true;
-/*     var agent = navigator.userAgent;
+    var browser;
+    var agent = navigator.userAgent;
         if(agent.indexOf("Mozilla/") != -1 && agent.indexOf("like Mac OS ") != -1 && agent.indexOf("like Gecko") != -1 && agent.indexOf("Mobile") != -1 && agent.indexOf("Safari") != -1){
         browser = false;
         }
         else {browser = true;}
     ;
- */
+
     /* Set up initial map layer */
     
     // Fullscreen & restore default zoom
@@ -156,6 +156,7 @@
                     bnds_1._southWest.lat = lat_sW_1
                     bnds_1._southWest.lng = lng_sW_1
                     mymap.fitBounds(bnds_1)
+                    mymarker.openPopup()
                 }
             });
 
@@ -370,9 +371,9 @@
 		icon: myIcon
 	}).addTo(mymap).bindPopup(myPopup);
 
-    setTimeout(function(){
-        mymarker.openPopup();
-    }, 2);
+    // setTimeout(function(){
+    //     mymarker.openPopup();
+    // }, 2);
 
 </script>
 
