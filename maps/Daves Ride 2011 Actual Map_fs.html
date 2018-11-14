@@ -105,10 +105,10 @@
     // Fullscreen & restore default zoom
     var mymap = L.map('mapid', {
         defaultExtentControl: true, 
-        fullscreenControl: browser,
+        // fullscreenControl: browser,
         fullscreenControlOptions: { // optional
             title:"Toggle Fullscreen",
-            pseudoFullscreen: true // if true, fullscreen to page width and height
+            pseudoFullscreen: browser // if true, fullscreen to page width and height
         }
     });
 
