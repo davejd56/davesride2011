@@ -7,18 +7,17 @@
 	<meta charset="utf-8" >
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.4/dist/leaflet.css" >
-    <link rel="stylesheet" href="leaflet-panel-layers-1.2.4/src/leaflet-panel-layers.css" />
-    <link rel="stylesheet" href="Leaflet.defaultextent-0.0.2/dist/leaflet.defaultextent.css" />
-    <link rel="stylesheet" href="https://unpkg.com/leaflet.fullscreen@1.4.5/Control.FullScreen.css" />
-    <link rel="stylesheet" href="TitleText.css"/>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.4/dist/leaflet.css" integrity="sha512-puBpdR0798OZvTTbP4A8Ix/l+A4dHDD0DGqYW6RQ+9jxkRFclaxxQb/SJAWZfWAkuyeQUytO7+7N4QKrDh+drA==" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet-panel-layers@1.2.4/dist/leaflet-panel-layers.min.css" integrity="sha384-AUTkume2TZ+jlkeMGuyG4pUihkXJSQJUgnTXjnzZ44lxbLUFTL0ar7PsJz5YNag6" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet.defaultextent@0.0.2/dist/leaflet.defaultextent.css" integrity="sha384-3+DeBhEB9zDAvfhi4K5XCshWbijhmEkLnR/uovB/WYXdHNPD7zsKPEq2JPFCQQRt" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet.fullscreen@1.4.5/Control.FullScreen.css" integrity="sha384-weDCJ80JNrg6W2Dha8CBrQyz5PZVPOZ39Lw7vWOzm65zqKvZZfSq/3rR77RY5TWm" crossorigin="anonymous">
+    <link rel="stylesheet" href="TitleText.css">
 	
-	<script src="https://unpkg.com/leaflet@1.3.4/dist/leaflet.js" ></script>
-    <script src="leaflet-panel-layers-1.2.4/src/leaflet-panel-layers.js"></script>
+	<script src="https://unpkg.com/leaflet@1.3.4/dist/leaflet.js"  integrity="sha512-nMMmRyTVoLYqjP9hrbed9S+FzjZHW5gY1TWCHA5ckwXZBadntCNs8kEqAWdrb9O7rxbCaA4lKTIWjDXZxflOcA==" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/leaflet-panel-layers@1.2.4/dist/leaflet-panel-layers.min.js" integrity="sha384-x0Rqw0P8xx7M6kFbyWIZJvvxRlSVQV35mSUwLt/qbm90M30yo1VmNXgeUF6thctZ" crossorigin="anonymous"></script>
     <script src="https://unpkg.com/leaflet-omnivore@0.3.4/leaflet-omnivore.min.js" integrity="sha384-iSbZ0u+krSsBvNi0nBcb2hAdkZkoY5HVYY/bPow5MvY9yWGAmXSpZJ3rt2Run9rK" crossorigin="anonymous"></script>
-    <!-- <script src="https://api.mapbox.com/mapbox.js/plugins/leaflet-omnivore/v0.2.0/leaflet-omnivore.min.js"></script> -->
-    <script src="https://unpkg.com/leaflet.fullscreen@1.4.5/Control.FullScreen.js"></script>
-    <script src="Leaflet.defaultextent-0.0.2/dist/leaflet.defaultextent.js"></script>
+    <script src="https://unpkg.com/leaflet.fullscreen@1.4.5/Control.FullScreen.js" integrity="sha384-LI7lnNqtDOpovwecHEB9jTjNs02t+lV9nYlODcke1IA5NjpVJ0vNrp1KVvUM9+i5" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/leaflet.defaultextent@0.0.2/dist/leaflet.defaultextent.js" integrity="sha384-yiscI0r5h5iPWa9xAXxldSjNGtd+kZrLASu7TTy/yn3r/ZR9Pc+M6Ypf5qbcCOi7" crossorigin="anonymous"></script>
 
 	<style type="text/css">
 	html, body, #mapid {
@@ -93,16 +92,18 @@
         
     /* Check for mobile safari browser */
     // normal
-/*     var browser;
-    var agent = navigator.userAgent;
+    /*  var browser;
+        var agent = navigator.userAgent;
         if(agent.indexOf("Mozilla/") != -1 && agent.indexOf("like Mac OS ") != -1 && agent.indexOf("like Gecko") != -1 && agent.indexOf("Mobile") != -1 && agent.indexOf("Safari") != -1){
-        browser = false;
+        browser = false
         }
         else {browser = true;}
+        var PFullScr = !browser;
     ; */
-    // OR
-    // Testing force fullscreen
+    // !! OR !!
+    // Testing, force fullscreen & pseudoFS
     var browser = true;
+    var PFullScr = true;
 
     /* Set up initial map layer */
     
@@ -112,7 +113,7 @@
         fullscreenControl: browser,
         fullscreenControlOptions: { // optional
             title:"Toggle Fullscreen",
-            pseudoFullscreen: true // if true, fullscreen to page width and height
+            pseudoFullscreen: PFullScr // if true, fullscreen to page width and height
         }
     });
 

@@ -25,5 +25,14 @@ h1::before{
   text-shadow: 1pt 1pt 2px rgb(0,0,0);
   position: absolute;
   left: 100px;
+  top: 15px;
   z-index: 999;
 }
+.leaflet-panel-layers-overlays .leaflet-panel-layers-item {
+	margin-bottom: 1px;
+	color: blue;
+	font-style: italic;
+	padding: .1px;
+	letter-spacing: -.05rem;
+}
+
