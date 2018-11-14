@@ -156,6 +156,7 @@
                     bnds_1._southWest.lat = lat_sW_1
                     bnds_1._southWest.lng = lng_sW_1
                     mymap.fitBounds(bnds_1)
+                    mymarker.openPopup()
                 }
             });
 
@@ -370,9 +371,9 @@
 		icon: myIcon
 	}).addTo(mymap).bindPopup(myPopup);
 
-    setTimeout(function(){
+/*     setTimeout(function(){
         mymarker.openPopup();
-    }, 0);
+    }, 0); */
 
 </script>
 

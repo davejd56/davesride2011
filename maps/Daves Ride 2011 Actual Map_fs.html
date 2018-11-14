@@ -92,13 +92,17 @@
         'Full Screen &copy; <a href="https://github.com/brunob/leaflet.fullscreen/blob/master/LICENSE">2013, Bruno Bergot</a>'
         
     /* Check for mobile safari browser */
-    var browser;
+    // normal
+/*     var browser;
     var agent = navigator.userAgent;
         if(agent.indexOf("Mozilla/") != -1 && agent.indexOf("like Mac OS ") != -1 && agent.indexOf("like Gecko") != -1 && agent.indexOf("Mobile") != -1 && agent.indexOf("Safari") != -1){
         browser = false;
         }
         else {browser = true;}
-    ;
+    ; */
+    // OR
+    // Testing force fullscreen
+    var browser = true;
 
     /* Set up initial map layer */
     
@@ -373,7 +377,7 @@
 
     // setTimeout(function(){
     //     mymarker.openPopup();
-    // }, 2);
+    // }, 0);
 
 </script>
 
