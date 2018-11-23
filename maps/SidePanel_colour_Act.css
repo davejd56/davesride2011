@@ -1,3 +1,6 @@
+.leaflet-panel-layers-group {
+  padding: 0  4px;
+}
 .leaflet-panel-layers-overlays .leaflet-panel-layers-item {
   font-weight: 500;
   min-height: 18px;
