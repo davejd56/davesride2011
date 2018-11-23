@@ -1,6 +1,6 @@
 .leaflet-panel-layers-overlays .leaflet-panel-layers-item {
   font-weight: 500;
-  min-height: 18;
+  min-height: 18px;
   /* font-size: small; */
   text-shadow: 0 0 2px rgb(100, 100, 100);
   background-color: rgb(235, 235, 235);
