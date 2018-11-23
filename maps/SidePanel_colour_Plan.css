@@ -1,0 +1,51 @@
+.leaflet-panel-layers-overlays .leaflet-panel-layers-item {
+  font-weight: 700;
+  font-size: small;
+  text-shadow: 0 0 2px rgb(100, 100, 100);
+  background-color: rgb(235, 235, 235);
+}
+
+.leaflet-panel-layers-title [id="31"] + span  , .leaflet-panel-layers-title [id="41"] + span, .leaflet-panel-layers-title [id="51"] + span {
+  color: #e60000;
+}
+
+.leaflet-panel-layers-title [id="32"] + span, .leaflet-panel-layers-title [id="42"] + span, .leaflet-panel-layers-title [id="52"] + span {
+  color: #e67500;
+  text-shadow: 0 0 0;
+}
+
+.leaflet-panel-layers-title [id="33"] + span, .leaflet-panel-layers-title [id="43"] + span, .leaflet-panel-layers-title [id="53"] + span {
+  color: #ffff00;
+}
+
+.leaflet-panel-layers-title [id="34"] + span, .leaflet-panel-layers-title [id="44"] + span, .leaflet-panel-layers-title [id="54"] + span {
+  color: #71e600;
+  text-shadow: 0 0 0;
+}
+
+.leaflet-panel-layers-title [id="35"] + span, .leaflet-panel-layers-title [id="45"] + span, .leaflet-panel-layers-title [id="55"] + span {
+  color: #33cc00;
+  text-shadow: 0 0 0;
+}
+
+.leaflet-panel-layers-title [id="36"] + span, .leaflet-panel-layers-title [id="46"] + span, .leaflet-panel-layers-title [id="56"] + span {
+  color: #00ffcc;
+}
+
+.leaflet-panel-layers-title [id="37"] + span, .leaflet-panel-layers-title [id="47"] + span, .leaflet-panel-layers-title [id="57"] + span {
+  color: #00ccff;
+  text-shadow: 0 0 0;
+}
+
+.leaflet-panel-layers-title [id="38"] + span, .leaflet-panel-layers-title [id="48"] + span, .leaflet-panel-layers-title [id="58"] + span {
+  color: #0071e6;
+  text-shadow: 0 0 0;
+}
+
+.leaflet-panel-layers-title [id="39"] + span, .leaflet-panel-layers-title [id="49"] + span {
+  color: #0000e6;
+}
+
+.leaflet-panel-layers-title [id="40"] + span, .leaflet-panel-layers-title [id="50"] + span {
+  color: #7500e6;
+}
