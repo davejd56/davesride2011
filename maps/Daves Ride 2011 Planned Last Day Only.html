@@ -79,11 +79,13 @@
 
     // var mymap = L.map('mapid').setView([-37.763658, 145.077896], 12),
 	mboxLayer = new 
-		L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoiZGF2ZWpkNDMxNzgiLCJhIjoiY2puZ3ByeTlhMDFicDNrcG1yMjlkcmxjciJ9.4_vjg7yVBgk-CZtkol42Ig', { 
+    L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoiZGF2ZWpkNDMxNzgiLCJhIjoiY2puZ3ByeTlhMDFicDNrcG1yMjlkcmxjciJ9.4_vjg7yVBgk-CZtkol42Ig', {
 		maxZoom: 23,
+		tileSize: 512,
+		zoomOffset: -1,
         attribution:
         Att_Com,
-		id: 'mapbox.streets'
+		id: 'mapbox/streets-v11'
         });
         mymap.addLayer(mboxLayer); 
 
@@ -372,19 +374,23 @@
                 },
                 {
                     name: "Mapbox Outdoors",
-                    layer: L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoiZGF2ZWpkNDMxNzgiLCJhIjoiY2puZ3ByeTlhMDFicDNrcG1yMjlkcmxjciJ9.4_vjg7yVBgk-CZtkol42Ig', { 
+                    layer: L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoiZGF2ZWpkNDMxNzgiLCJhIjoiY2puZ3ByeTlhMDFicDNrcG1yMjlkcmxjciJ9.4_vjg7yVBgk-CZtkol42Ig', { 
                     maxZoom: 23,
+                    tileSize: 512,
+                    zoomOffset: -1,
                     attribution:
                     Att_Com,
-                    id: 'mapbox.outdoors' })
+                    id: 'mapbox/outdoors-v11' })
                 },
                 {
                     name: "Mapbox Light",
-                    layer: L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoiZGF2ZWpkNDMxNzgiLCJhIjoiY2puZ3ByeTlhMDFicDNrcG1yMjlkcmxjciJ9.4_vjg7yVBgk-CZtkol42Ig', { 
+                    layer: L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoiZGF2ZWpkNDMxNzgiLCJhIjoiY2puZ3ByeTlhMDFicDNrcG1yMjlkcmxjciJ9.4_vjg7yVBgk-CZtkol42Ig', { 
                     maxZoom: 23,
+                    tileSize: 512,
+                    zoomOffset: -1,
                     attribution:
                     Att_Com,
-                    id: 'mapbox.light' })
+                    id: 'mapbox/light-v10' })
                 },
                 {
                     name: "Open Street Map",
